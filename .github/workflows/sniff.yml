@@ -12,15 +12,10 @@
 #                      用 NVIDIA NIM 免费额度则填 https://integrate.api.nvidia.com/v1
 #   OPENAI_MODEL     - 模型名（可选，默认 gpt-4o-mini；NVIDIA 如 deepseek-ai/deepseek-v3.1）
 #   PUBMED_API_KEY   - PubMed API Key（可选，提高速率限制）
-#   HF_TOKEN         - Hugging Face Token（Write 权限，用于推送数据到 Space）
 #
-# 所需 Variables（Settings -> Secrets and variables -> Actions -> Variables）：
-#   HF_SPACE_ID      - HF Space 仓库 ID，格式 username/space-name
-#
-# 数据流（关键）：
-#   每日嗅探更新 data/ 并 commit 后，第 6 步会把最新 data/frontend/*.json
-#   直接推送到 HF Space 仓库的 data/ 目录——因为前端是把数据打包成静态文件
-#   部署的，仅靠 restart 无法刷新。此步骤确保统计/图表/文献列表每日真正同步。
+# 数据流：
+#   每日嗅探更新 data/ 并 commit 后，deploy.yml 监听 data/frontend/** 变更
+#   会自动触发重新构建并部署到 GitHub Pages，网站统计数据随之刷新。
 
 name: Daily Paper Sniffer
 
@@ -102,7 +97,7 @@ jobs:
           python src/sniffer.py $ARGS
 
       # -------------------------------------------------------------------
-      # 5. Commit updated data
+      # 5. Commit updated data (triggers deploy.yml via data/frontend/** path)
       # -------------------------------------------------------------------
       - name: Commit updated data
         run: |
@@ -116,49 +111,5 @@ jobs:
             git add data/
             git commit -m "chore(data): daily sniffer update $(date -u +%Y-%m-%d)"
             git push
-            echo "Data committed and pushed"
-          fi
-
-      # -------------------------------------------------------------------
-      # 6. Sync latest data to Hugging Face Space (hot data update)
-      # -------------------------------------------------------------------
-      # 前端数据是打包进 HF Space 仓库 dist/data/ 的静态文件。
-      # 仅触发 /restart 不会拉取 GitHub 最新数据——必须直接把更新后的
-      # data/frontend/*.json 推送到 Space 仓库的 data/ 目录，网站统计/图表/
-      # 列表才会真正同步刷新。前端代码（JS/CSS/HTML）保持不变。
-      - name: Push updated data to Hugging Face Space
-        if: env.HF_TOKEN != ''
-        env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
-          HF_SPACE_ID: ${{ vars.HF_SPACE_ID }}
-        run: |
-          if [ -z "$HF_SPACE_ID" ]; then
-            echo "HF_SPACE_ID variable not set, skipping data sync"
-            exit 0
-          fi
-
-          # 仅当数据确有更新才同步
-          if git diff --quiet HEAD~1 HEAD -- data/frontend/ 2>/dev/null && [ -z "$(git status --porcelain data/frontend/)" ]; then
-            echo "No data changes, skipping HF data sync"
-            exit 0
-          fi
-
-          echo "Syncing data/frontend/*.json to HF Space: $HF_SPACE_ID"
-          git clone "https://user:$HF_TOKEN@huggingface.co/spaces/$HF_SPACE_ID" hf-space --depth 1
-
-          mkdir -p hf-space/data
-          cp data/frontend/papers.json    hf-space/data/ 2>/dev/null || echo "papers.json missing"
-          cp data/frontend/taxonomy.json  hf-space/data/ 2>/dev/null || echo "taxonomy.json missing"
-          cp data/frontend/meta.json      hf-space/data/ 2>/dev/null || echo "meta.json missing"
-
-          cd hf-space
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/
-          if git diff --cached --quiet; then
-            echo "HF Space data already up to date"
-          else
-            git commit -m "chore(data): daily sniffer sync $(date -u +%Y-%m-%d)"
-            git push origin main
-            echo "Data pushed to HF Space — site will reflect new stats on next page load"
+            echo "Data committed and pushed - deploy.yml will auto-rebuild GitHub Pages"
           fi

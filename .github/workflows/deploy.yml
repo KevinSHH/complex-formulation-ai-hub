@@ -1,8 +1,7 @@
-# ComplexForm-AI Hub - Frontend Build & Deploy
-# ==============================================
-# 当前端代码变更时构建并部署到 Hugging Face Spaces。
-# 数据文件（data/frontend/*.json）的变更不触发此工作流——
-# 前端运行时 fetch JSON，数据更新无需重建镜像。
+# ComplexForm-AI Hub - Frontend Build & Deploy to GitHub Pages
+# ==============================================================
+# 当前端代码或数据变更时构建并部署到 GitHub Pages。
+# 使用 gh-pages 分支托管静态文件，完全免费。
 
 name: Deploy Frontend
 
@@ -11,11 +10,12 @@ on:
     branches: [main]
     paths:
       - "frontend/**"
+      - "data/frontend/**"
       - ".github/workflows/deploy.yml"
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write  # Required for pushing to gh-pages branch
 
 concurrency:
   group: deploy-frontend
@@ -62,41 +62,18 @@ jobs:
           cp data/frontend/meta.json frontend/dist/data/
 
       # -------------------------------------------------------------------
-      # 4. Deploy to Hugging Face Spaces
+      # 4. Add .nojekyll (bypass Jekyll processing for _assets etc.)
       # -------------------------------------------------------------------
-      - name: Deploy to Hugging Face Spaces
-        if: env.HF_TOKEN != ''
-        env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
-          HF_SPACE_ID: ${{ vars.HF_SPACE_ID }}
-        run: |
-          if [ -z "$HF_SPACE_ID" ]; then
-            echo "HF_SPACE_ID variable not set, skipping deploy"
-            exit 0
-          fi
-
-          # Clone the HF Space repo
-          git clone "https://user:$HF_TOKEN@huggingface.co/spaces/$HF_SPACE_ID" hf-space
-
-          # Copy built files
-          cp -r frontend/dist/* hf-space/
-          cp frontend/Dockerfile hf-space/
-          cp frontend/nginx.conf hf-space/
-
-          # Commit and push
-          cd hf-space
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add -A
-          git commit -m "Deploy: $(date -u +%Y-%m-%dT%H:%M:%SZ)" || echo "No changes to deploy"
-          git push origin main
+      - name: Add .nojekyll
+        run: touch frontend/dist/.nojekyll
 
       # -------------------------------------------------------------------
-      # 5. Upload build artifact (for debugging)
+      # 5. Deploy to GitHub Pages (gh-pages branch)
       # -------------------------------------------------------------------
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          name: frontend-dist
-          path: frontend/dist/
-          retention-days: 7
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: frontend/dist
+          publish_branch: gh-pages
+          force_orphan: true
