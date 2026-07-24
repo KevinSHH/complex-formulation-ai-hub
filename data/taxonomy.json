@@ -1,0 +1,149 @@
+{
+  "meta": {
+    "total_papers": 90,
+    "total_ml_papers": 69,
+    "domains": {
+      "in_situ_gel": {
+        "label": "In Situ Gel",
+        "label_cn": "原位凝胶",
+        "icon": "💧",
+        "total": 17,
+        "ml": 9
+      },
+      "liposome": {
+        "label": "Liposome",
+        "label_cn": "脂质体",
+        "icon": "🧫",
+        "total": 19,
+        "ml": 15
+      },
+      "microsphere": {
+        "label": "Microsphere",
+        "label_cn": "微球",
+        "icon": "⚪",
+        "total": 18,
+        "ml": 11
+      },
+      "nanocrystal": {
+        "label": "Nanocrystal",
+        "label_cn": "纳米晶",
+        "icon": "💎",
+        "total": 12,
+        "ml": 10
+      },
+      "plga_design": {
+        "label": "PLGA Design",
+        "label_cn": "PLGA 设计",
+        "icon": "🧬",
+        "total": 24,
+        "ml": 24
+      }
+    }
+  },
+  "ai_models": {
+    "Molecular Dynamics": 11,
+    "Transformer / LLM": 8,
+    "Deep Learning": 8,
+    "Ensemble": 6,
+    "Gaussian Process": 6,
+    "Random Forest": 3,
+    "ANN / MLP": 3,
+    "GNN": 3,
+    "SVM": 3,
+    "VAE / GAN": 3,
+    "Linear / PLS": 3,
+    "XGBoost": 2,
+    "CNN": 2,
+    "Reinforcement Learning": 2,
+    "k-NN": 1,
+    "Genetic Algorithm": 1
+  },
+  "formulation_types": {
+    "Nanoparticle (generic)": 31,
+    "Microsphere": 18,
+    "Lipid nanoparticle (LNP)": 15,
+    "Nanocrystal": 11,
+    "Hydrogel": 9,
+    "PLGA nanoparticle": 9,
+    "In situ gel": 8,
+    "mRNA / nucleic acid carrier": 8,
+    "Liposome": 8,
+    "PLGA implant": 7,
+    "Block copolymer": 7,
+    "Thermosensitive hydrogel": 5,
+    "PLGA microsphere": 3,
+    "Nanosuspension": 3
+  },
+  "input_features": {
+    "Particle size": 13,
+    "Temperature": 12,
+    "Concentration": 11,
+    "Drug loading": 9,
+    "Surfactant concentration": 5,
+    "Process parameters": 5,
+    "Polymer/lipid ratio": 4,
+    "Zeta potential": 4,
+    "Viscosity": 3,
+    "Polymer molecular weight": 2,
+    "pH": 2
+  },
+  "year_trend": {
+    "2008": 1,
+    "2009": 1,
+    "2019": 1,
+    "2023": 7,
+    "2024": 17,
+    "2025": 35,
+    "2026": 9
+  },
+  "domain_model_matrix": {
+    "in_situ_gel": {
+      "Molecular Dynamics": 2,
+      "XGBoost": 1,
+      "Ensemble": 1,
+      "Random Forest": 1,
+      "ANN / MLP": 1,
+      "GNN": 1,
+      "Transformer / LLM": 1,
+      "SVM": 1,
+      "VAE / GAN": 1
+    },
+    "liposome": {
+      "Deep Learning": 4,
+      "Molecular Dynamics": 4,
+      "Transformer / LLM": 2,
+      "GNN": 1,
+      "CNN": 1
+    },
+    "microsphere": {
+      "Deep Learning": 1,
+      "ANN / MLP": 1,
+      "Ensemble": 1,
+      "Transformer / LLM": 1
+    },
+    "nanocrystal": {
+      "Deep Learning": 3,
+      "Transformer / LLM": 1,
+      "Gaussian Process": 1,
+      "Ensemble": 1,
+      "Reinforcement Learning": 1
+    },
+    "plga_design": {
+      "Molecular Dynamics": 5,
+      "Gaussian Process": 5,
+      "Ensemble": 3,
+      "Transformer / LLM": 3,
+      "Linear / PLS": 3,
+      "VAE / GAN": 2,
+      "SVM": 2,
+      "Random Forest": 2,
+      "Reinforcement Learning": 1,
+      "CNN": 1,
+      "XGBoost": 1,
+      "ANN / MLP": 1,
+      "k-NN": 1,
+      "GNN": 1,
+      "Genetic Algorithm": 1
+    }
+  }
+}

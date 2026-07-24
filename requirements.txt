@@ -1,0 +1,12 @@
+# ComplexForm-AI Hub - Python 依赖清单
+# =======================================
+
+# --- Phase 1: PDF 解析 ---
+PyMuPDF>=1.24.0          # PDF 文本/字体提取 (import fitz)
+
+# --- Phase 2: 嗅探与摘要 ---
+requests>=2.31.0         # OpenAlex / PubMed / Crossref REST API
+openai>=1.30.0           # LLM 摘要 (OpenAI 兼容: OpenAI/DeepSeek/方舟等)
+
+# --- Phase 3: HF 同步 (可选) ---
+huggingface-hub>=0.23.0  # 推送数据至 HF Dataset/Space

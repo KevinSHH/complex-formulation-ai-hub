@@ -1,0 +1,102 @@
+# ComplexForm-AI Hub - Frontend Build & Deploy
+# ==============================================
+# 当前端代码变更时构建并部署到 Hugging Face Spaces。
+# 数据文件（data/frontend/*.json）的变更不触发此工作流——
+# 前端运行时 fetch JSON，数据更新无需重建镜像。
+
+name: Deploy Frontend
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "frontend/**"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-frontend
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      # -------------------------------------------------------------------
+      # 1. Checkout
+      # -------------------------------------------------------------------
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # -------------------------------------------------------------------
+      # 2. Setup Node
+      # -------------------------------------------------------------------
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+
+      # -------------------------------------------------------------------
+      # 3. Install & Build
+      # -------------------------------------------------------------------
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm install --legacy-peer-deps
+
+      - name: Build
+        working-directory: frontend
+        run: npm run build
+
+      - name: Copy data to dist
+        run: |
+          mkdir -p frontend/dist/data
+          cp data/frontend/papers.json frontend/dist/data/
+          cp data/frontend/taxonomy.json frontend/dist/data/
+          cp data/frontend/meta.json frontend/dist/data/
+
+      # -------------------------------------------------------------------
+      # 4. Deploy to Hugging Face Spaces
+      # -------------------------------------------------------------------
+      - name: Deploy to Hugging Face Spaces
+        if: env.HF_TOKEN != ''
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_SPACE_ID: ${{ vars.HF_SPACE_ID }}
+        run: |
+          if [ -z "$HF_SPACE_ID" ]; then
+            echo "HF_SPACE_ID variable not set, skipping deploy"
+            exit 0
+          fi
+
+          # Clone the HF Space repo
+          git clone "https://user:$HF_TOKEN@huggingface.co/spaces/$HF_SPACE_ID" hf-space
+
+          # Copy built files
+          cp -r frontend/dist/* hf-space/
+          cp frontend/Dockerfile hf-space/
+          cp frontend/nginx.conf hf-space/
+
+          # Commit and push
+          cd hf-space
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -m "Deploy: $(date -u +%Y-%m-%dT%H:%M:%SZ)" || echo "No changes to deploy"
+          git push origin main
+
+      # -------------------------------------------------------------------
+      # 5. Upload build artifact (for debugging)
+      # -------------------------------------------------------------------
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend/dist/
+          retention-days: 7

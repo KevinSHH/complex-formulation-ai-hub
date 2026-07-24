@@ -1,0 +1,164 @@
+# ComplexForm-AI Hub - Daily SCI Paper Sniffer Pipeline
+# =======================================================
+# 每日定时执行：OpenAlex/PubMed 检索 -> 去重 -> 规则抽取 -> LLM摘要(可选) -> 入库 -> 导出前端JSON -> commit
+#
+# 触发方式：
+#   1. 定时：每日 UTC 02:00（北京时间 10:00）
+#   2. 手动：GitHub Actions 页面点击 "Run workflow"
+#
+# 所需 Secrets（Settings -> Secrets and variables -> Actions）：
+#   OPENAI_API_KEY   - LLM API Key（可选，缺失则降级为纯规则抽取）
+#   OPENAI_API_BASE  - LLM API Base URL（可选，默认 https://api.openai.com/v1）
+#                      用 NVIDIA NIM 免费额度则填 https://integrate.api.nvidia.com/v1
+#   OPENAI_MODEL     - 模型名（可选，默认 gpt-4o-mini；NVIDIA 如 deepseek-ai/deepseek-v3.1）
+#   PUBMED_API_KEY   - PubMed API Key（可选，提高速率限制）
+#   HF_TOKEN         - Hugging Face Token（Write 权限，用于推送数据到 Space）
+#
+# 所需 Variables（Settings -> Secrets and variables -> Actions -> Variables）：
+#   HF_SPACE_ID      - HF Space 仓库 ID，格式 username/space-name
+#
+# 数据流（关键）：
+#   每日嗅探更新 data/ 并 commit 后，第 6 步会把最新 data/frontend/*.json
+#   直接推送到 HF Space 仓库的 data/ 目录——因为前端是把数据打包成静态文件
+#   部署的，仅靠 restart 无法刷新。此步骤确保统计/图表/文献列表每日真正同步。
+
+name: Daily Paper Sniffer
+
+on:
+  schedule:
+    # UTC 02:00 daily = Beijing 10:00
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+    inputs:
+      days:
+        description: "Only fetch papers from last N days (0 = all)"
+        required: false
+        default: "0"
+      per_query:
+        description: "Papers per search query (default 25)"
+        required: false
+        default: "25"
+      skip_llm:
+        description: "Skip LLM summarization (true/false)"
+        required: false
+        default: "false"
+
+permissions:
+  contents: write  # Required for git push
+
+concurrency:
+  group: sniffer-run
+  cancel-in-progress: false
+
+jobs:
+  sniff:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      # -------------------------------------------------------------------
+      # 1. Checkout
+      # -------------------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for proper diff
+
+      # -------------------------------------------------------------------
+      # 2. Setup Python
+      # -------------------------------------------------------------------
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # -------------------------------------------------------------------
+      # 3. Install dependencies
+      # -------------------------------------------------------------------
+      - name: Install dependencies
+        run: |
+          pip install --no-cache-dir -r requirements.txt
+
+      # -------------------------------------------------------------------
+      # 4. Run sniffer
+      # -------------------------------------------------------------------
+      - name: Run paper sniffer
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_API_BASE: ${{ secrets.OPENAI_API_BASE }}
+          OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
+          PUBMED_API_KEY: ${{ secrets.PUBMED_API_KEY }}
+        run: |
+          DAYS="${{ github.event.inputs.days || '0' }}"
+          PER_QUERY="${{ github.event.inputs.per_query || '25' }}"
+          SKIP_LLM="${{ github.event.inputs.skip_llm || 'false' }}"
+
+          ARGS="--per-query $PER_QUERY --days $DAYS"
+          if [ "$SKIP_LLM" = "true" ]; then
+            ARGS="$ARGS --no-llm"
+          fi
+
+          echo "Running sniffer with: $ARGS"
+          python src/sniffer.py $ARGS
+
+      # -------------------------------------------------------------------
+      # 5. Commit updated data
+      # -------------------------------------------------------------------
+      - name: Commit updated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Check if there are changes
+          if git diff --quiet data/; then
+            echo "No changes to commit"
+          else
+            git add data/
+            git commit -m "chore(data): daily sniffer update $(date -u +%Y-%m-%d)"
+            git push
+            echo "Data committed and pushed"
+          fi
+
+      # -------------------------------------------------------------------
+      # 6. Sync latest data to Hugging Face Space (hot data update)
+      # -------------------------------------------------------------------
+      # 前端数据是打包进 HF Space 仓库 dist/data/ 的静态文件。
+      # 仅触发 /restart 不会拉取 GitHub 最新数据——必须直接把更新后的
+      # data/frontend/*.json 推送到 Space 仓库的 data/ 目录，网站统计/图表/
+      # 列表才会真正同步刷新。前端代码（JS/CSS/HTML）保持不变。
+      - name: Push updated data to Hugging Face Space
+        if: env.HF_TOKEN != ''
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_SPACE_ID: ${{ vars.HF_SPACE_ID }}
+        run: |
+          if [ -z "$HF_SPACE_ID" ]; then
+            echo "HF_SPACE_ID variable not set, skipping data sync"
+            exit 0
+          fi
+
+          # 仅当数据确有更新才同步
+          if git diff --quiet HEAD~1 HEAD -- data/frontend/ 2>/dev/null && [ -z "$(git status --porcelain data/frontend/)" ]; then
+            echo "No data changes, skipping HF data sync"
+            exit 0
+          fi
+
+          echo "Syncing data/frontend/*.json to HF Space: $HF_SPACE_ID"
+          git clone "https://user:$HF_TOKEN@huggingface.co/spaces/$HF_SPACE_ID" hf-space --depth 1
+
+          mkdir -p hf-space/data
+          cp data/frontend/papers.json    hf-space/data/ 2>/dev/null || echo "papers.json missing"
+          cp data/frontend/taxonomy.json  hf-space/data/ 2>/dev/null || echo "taxonomy.json missing"
+          cp data/frontend/meta.json      hf-space/data/ 2>/dev/null || echo "meta.json missing"
+
+          cd hf-space
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          if git diff --cached --quiet; then
+            echo "HF Space data already up to date"
+          else
+            git commit -m "chore(data): daily sniffer sync $(date -u +%Y-%m-%d)"
+            git push origin main
+            echo "Data pushed to HF Space — site will reflect new stats on next page load"
+          fi
