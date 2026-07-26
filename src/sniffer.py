@@ -366,19 +366,30 @@ def run_sniffer(domains: list[str], per_query: int = 25, use_pubmed: bool = True
         r["ml_summary"] = ml
         r["is_ml"] = bool(ml["ai_models_all"]) or _has_ml(r["title"], r["abstract"])
 
+    # 先合并入库 + 保存（确保即使 LLM 超时，规则抽取结果也不丢失）
+    for r in deduped:
+        existing[r["id"]] = r
+    save_jsonl(existing, config.JSONL_PATH)
+    build_sqlite(list(existing.values()), config.SQLITE_PATH)
+    print(f"规则抽取完成并已保存（{len(deduped)} 篇新增）")
+
     # LLM 摘要增强
     if use_llm and config.LLM_CONFIG["api_key"]:
         print("\n===== LLM 摘要增强 =====")
         try:
             from summarizer import enhance_records
-            enhance_records(deduped)
+
+            # checkpoint 函数：将当前 existing（含已增强记录）保存到磁盘
+            def checkpoint():
+                save_jsonl(existing, config.JSONL_PATH)
+                build_sqlite(list(existing.values()), config.SQLITE_PATH)
+
+            enhance_records(deduped, batch_delay=0.5,
+                            checkpoint_fn=checkpoint, checkpoint_interval=20)
         except Exception as exc:
             print(f"  [LLM WARNING] {exc}，降级为纯规则抽取")
 
-    # 合并入库
-    for r in deduped:
-        existing[r["id"]] = r
-
+    # LLM 增强后再次保存（即使超时被中断，checkpoint 已保存了大部分）
     save_jsonl(existing, config.JSONL_PATH)
     build_sqlite(list(existing.values()), config.SQLITE_PATH)
 

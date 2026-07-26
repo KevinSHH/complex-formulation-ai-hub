@@ -230,13 +230,15 @@ def _test_llm(client) -> bool:
         return False
 
 
-def enhance_records(records: list[dict], batch_delay: float = 1.0) -> None:
+def enhance_records(records: list[dict], batch_delay: float = 0.5,
+                    checkpoint_fn=None, checkpoint_interval: int = 20) -> None:
     """批量增强论文记录的 ml_summary（原地修改）。
 
-    batch_delay 默认 1.0s：每篇 2 次 LLM 调用，约 2 req/s，
-    远低于 NVIDIA NIM 免费额度的 40 RPM 限速，可安全用于免费 API。
-
-    跳过已有 LLM 摘要的记录（extracted_by == "llm"），避免重复调用。
+    优化策略：
+    - batch_delay 默认 0.5s：每篇 ~2-3s（含 API 调用），适配 NVIDIA NIM 40 RPM。
+    - 每 checkpoint_interval 篇调用 checkpoint_fn 保存中间结果，防止超时丢失。
+    - 跳过已有 LLM 摘要的记录（extracted_by == "llm"），避免重复调用。
+    - 连续失败 5 次提前终止。
     """
     client = _get_client()
 
@@ -279,6 +281,15 @@ def enhance_records(records: list[dict], batch_delay: float = 1.0) -> None:
             print(f"\n  ⚠️ 连续 {fail_streak} 次 LLM 调用失败，提前终止增强（API 可能不可用）")
             print(f"  剩余 {total - i} 篇保留规则抽取结果")
             break
+
+        # 定期 checkpoint 保存，防止超时丢失已增强的记录
+        if checkpoint_fn and i % checkpoint_interval == 0:
+            print(f"\n  [checkpoint] 已增强 {i}/{total}，保存中间结果...", end=" ", flush=True)
+            try:
+                checkpoint_fn()
+                print("done")
+            except Exception as exc:
+                print(f"failed: {exc}")
 
         if batch_delay and i < total:
             time.sleep(batch_delay)
