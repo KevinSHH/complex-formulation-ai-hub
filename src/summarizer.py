@@ -85,12 +85,50 @@ def _get_client():
     return OpenAI(api_key=cfg["api_key"], base_url=cfg["base_url"])
 
 
+# 模块级缓存：本次运行选定的可用模型名（由 _select_model 设置）
+_active_model: str | None = None
+
+
+def _select_model(client) -> str | None:
+    """从降级链中依次测试，返回第一个可用的模型名。
+    
+    测试通过后缓存结果，后续调用直接使用。
+    若全部不可用返回 None。
+    """
+    global _active_model
+    if _active_model is not None:
+        return _active_model
+
+    chain = config.get_model_chain()
+    print(f"  [LLM] 模型降级链: {chain}")
+    
+    for model in chain:
+        try:
+            resp = client.chat.completions.create(
+                model=model,
+                messages=[{"role": "user", "content": "Reply OK"}],
+                temperature=0,
+                max_tokens=5,
+            )
+            content = resp.choices[0].message.content
+            if content:
+                _active_model = model
+                print(f"  [LLM] ✓ 模型可用: {model}")
+                return model
+        except Exception as exc:
+            print(f"  [LLM] ✗ 模型不可用: {model} -> {exc}")
+    
+    print(f"  [LLM] ⚠️ 所有 {len(chain)} 个模型均不可用")
+    return None
+
+
 def _call_llm(client, prompt: str, max_retries: int = 2) -> str:
-    """调用 LLM 并返回文本响应，带重试。"""
+    """调用 LLM 并返回文本响应，带重试。使用 _select_model 选定的模型。"""
+    model = _active_model or config.LLM_CONFIG["model"]
     for attempt in range(max_retries + 1):
         try:
             resp = client.chat.completions.create(
-                model=config.LLM_CONFIG["model"],
+                model=model,
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0.1,
                 max_tokens=512,
@@ -183,18 +221,12 @@ def enhance_single(record: dict, client) -> dict:
 
 
 def _test_llm(client) -> bool:
-    """快速测试 LLM API 是否可用（发一个最小请求），返回 True/False。"""
-    try:
-        resp = client.chat.completions.create(
-            model=config.LLM_CONFIG["model"],
-            messages=[{"role": "user", "content": "Reply OK"}],
-            temperature=0,
-            max_tokens=5,
-        )
-        return bool(resp.choices[0].message.content)
-    except Exception as exc:
-        print(f"  [LLM TEST] API 不可用: {exc}")
-        print(f"  [LLM TEST] model={config.LLM_CONFIG['model']}, base_url={config.LLM_CONFIG['base_url']}")
+    """从降级链中选出第一个可用模型。成功返回 True 并缓存模型名。"""
+    model = _select_model(client)
+    if model:
+        return True
+    else:
+        print(f"  [LLM TEST] 所有模型均不可用, base_url={config.LLM_CONFIG['base_url']}")
         return False
 
 

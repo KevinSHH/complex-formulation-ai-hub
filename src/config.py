@@ -198,5 +198,35 @@ LLM_CONFIG = {
     "model": os.environ.get("OPENAI_MODEL", "gpt-4o-mini"),
 }
 
+# ---------------------------------------------------------------------------
+# NVIDIA NIM 模型降级链
+# 按优先级依次测试，第一个可用的模型作为本次嗅探的 LLM 后端。
+# 用户可通过 OPENAI_MODEL 环境变量指定单个模型（跳过降级链），
+# 也可通过 OPENAI_MODEL_FALLBACK 环境变量用逗号分隔自定义降级顺序。
+# ---------------------------------------------------------------------------
+NVIDIA_MODEL_CHAIN = [
+    "nvidia/nemotron-3-super-120b-a12b",
+    "nvidia/nemotron-3-ultra-550b-a55b",
+    "deepseek-ai/deepseek-v4-flash",
+]
+
+def get_model_chain() -> list[str]:
+    """返回模型降级链列表。
+    
+    优先级：
+    1. 若 OPENAI_MODEL 环境变量设置了单个模型 -> [该模型]（不降级）
+    2. 若 OPENAI_MODEL_FALLBACK 设置了逗号分隔的列表 -> 该列表
+    3. 默认 -> NVIDIA_MODEL_CHAIN
+    """
+    single = os.environ.get("OPENAI_MODEL", "").strip()
+    if single:
+        return [single]
+    fallback = os.environ.get("OPENAI_MODEL_FALLBACK", "").strip()
+    if fallback:
+        models = [m.strip() for m in fallback.split(",") if m.strip()]
+        if models:
+            return models
+    return list(NVIDIA_MODEL_CHAIN)
+
 # OpenAlex Polite Pool 邮箱（非敏感，可硬编码或环境变量覆盖）
 OPENALEX_MAILTO = os.environ.get("OPENALEX_MAILTO", "complexform.ai.hub@example.com")

@@ -3,15 +3,21 @@
 # 每日定时执行：OpenAlex/PubMed 检索 -> 去重 -> 规则抽取 -> LLM摘要(可选) -> 入库 -> 导出前端JSON -> commit
 #
 # 触发方式：
-#   1. 定时：每日 UTC 02:00（北京时间 10:00）
+#   1. 定时：每日 UTC 02:00（北京时间 10:00），自动增量检索（最近 7 天）
 #   2. 手动：GitHub Actions 页面点击 "Run workflow"
+#      - full_scan=true：全网检索（首次部署或补全历史文献时使用）
+#      - full_scan=false（默认）：只检索最近 7 天的新文献
 #
 # 所需 Secrets（Settings -> Secrets and variables -> Actions）：
-#   OPENAI_API_KEY   - LLM API Key（可选，缺失则降级为纯规则抽取）
-#   OPENAI_API_BASE  - LLM API Base URL（可选，默认 https://api.openai.com/v1）
-#                      用 NVIDIA NIM 免费额度则填 https://integrate.api.nvidia.com/v1
-#   OPENAI_MODEL     - 模型名（可选，默认 gpt-4o-mini；NVIDIA 如 deepseek-ai/deepseek-v3.1）
+#   OPENAI_API_KEY   - NVIDIA NIM API Key（nvapi- 开头，可选，缺失则降级为纯规则抽取）
+#   OPENAI_API_BASE  - LLM API Base URL（默认 https://integrate.api.nvidia.com/v1）
+#   OPENAI_MODEL     - 单模型名（可选，设置后跳过降级链直接用该模型）
 #   PUBMED_API_KEY   - PubMed API Key（可选，提高速率限制）
+#
+# LLM 模型降级链（自动按序测试，选第一个可用的）：
+#   1. nvidia/nemotron-3-super-120b-a12b（首选）
+#   2. nvidia/nemotron-3-ultra-550b-a55b（次选）
+#   3. deepseek-ai/deepseek-v4-flash（保底）
 #
 # 数据流：
 #   每日嗅探更新 data/ 并 commit 后，deploy.yml 监听 data/frontend/** 变更
@@ -25,10 +31,10 @@ on:
     - cron: "0 2 * * *"
   workflow_dispatch:
     inputs:
-      days:
-        description: "Only fetch papers from last N days (0 = all, default 7)"
+      full_scan:
+        description: "Full scan (true=all history, false=last 7 days only)"
         required: false
-        default: "7"
+        default: "false"
       per_query:
         description: "Papers per search query (default 25)"
         required: false
@@ -84,9 +90,19 @@ jobs:
           OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
           PUBMED_API_KEY: ${{ secrets.PUBMED_API_KEY }}
         run: |
-          DAYS="${{ github.event.inputs.days || '0' }}"
+          FULL_SCAN="${{ github.event.inputs.full_scan || 'false' }}"
           PER_QUERY="${{ github.event.inputs.per_query || '25' }}"
           SKIP_LLM="${{ github.event.inputs.skip_llm || 'false' }}"
+
+          # full_scan=true -> days=0 (检索全部历史)
+          # full_scan=false -> days=7 (只检索最近 7 天)
+          if [ "$FULL_SCAN" = "true" ]; then
+            DAYS=0
+            echo "=== 全网检索模式 (full scan) ==="
+          else
+            DAYS=7
+            echo "=== 增量检索模式 (最近 7 天) ==="
+          fi
 
           ARGS="--per-query $PER_QUERY --days $DAYS"
           if [ "$SKIP_LLM" = "true" ]; then
