@@ -62,6 +62,16 @@ Respond ONLY in JSON format:
 {{"formulation_type": "...", "input_features": ["..."], "ai_model": "...", "prediction_target": "...", "key_findings": "..."}}"""
 
 
+COMBINED_PROMPT = """You are an expert in pharmaceutical formulation science and AI/ML.
+Analyze this paper and extract structured information.
+
+Title: {title}
+Abstract: {abstract}
+
+Respond ONLY in JSON format with these fields:
+{{"domain": ["choose from: in_situ_gel, liposome, microsphere, nanocrystal, plga_design"], "is_ml": true/false, "formulation_type": "specific formulation system", "input_features": ["list of input variables"], "ai_model": "ML/AI model(s) used", "prediction_target": "what the model predicts", "key_findings": "2-3 sentence summary"}}"""
+
+
 # ===========================================================================
 # LLM 调用
 # ===========================================================================
@@ -135,7 +145,7 @@ def _parse_json_response(text: str) -> dict | None:
 # 两步 Prompt Chain
 # ===========================================================================
 def enhance_single(record: dict, client) -> dict:
-    """对单篇论文执行两步 Prompt Chain，返回增强后的 ml_summary。"""
+    """对单篇论文执行单次 LLM 调用（合并分类+抽取），返回增强后的 ml_summary。"""
     title = record.get("title", "")
     abstract = record.get("abstract", "")
 
@@ -145,37 +155,47 @@ def enhance_single(record: dict, client) -> dict:
 
     original_ml = record.get("ml_summary", {})
 
-    # Step 1: Classification
-    cls_prompt = CLASSIFICATION_PROMPT.format(title=title, abstract=abstract[:1500])
-    cls_text = _call_llm(client, cls_prompt)
-    cls_result = _parse_json_response(cls_text) or {}
-
-    # Step 2: Extraction
-    ext_prompt = EXTRACTION_PROMPT.format(title=title, abstract=abstract[:1500])
-    ext_text = _call_llm(client, ext_prompt)
-    ext_result = _parse_json_response(ext_text) or {}
+    # 单次调用：合并分类 + 抽取
+    prompt = COMBINED_PROMPT.format(title=title, abstract=abstract[:1500])
+    text = _call_llm(client, prompt)
+    result = _parse_json_response(text) or {}
 
     # 合并：LLM 结果优先，规则抽取补全
     enhanced = {
-        "formulation_type": ext_result.get("formulation_type", "") or original_ml.get("formulation_type", ""),
+        "formulation_type": result.get("formulation_type", "") or original_ml.get("formulation_type", ""),
         "formulation_types_all": original_ml.get("formulation_types_all", []),
-        "input_features": ext_result.get("input_features", []) or original_ml.get("input_features", []),
-        "ai_model": ext_result.get("ai_model", "") or original_ml.get("ai_model", ""),
+        "input_features": result.get("input_features", []) or original_ml.get("input_features", []),
+        "ai_model": result.get("ai_model", "") or original_ml.get("ai_model", ""),
         "ai_models_all": original_ml.get("ai_models_all", []),
-        "prediction_target": ext_result.get("prediction_target", "") or original_ml.get("prediction_target", ""),
-        "key_findings": ext_result.get("key_findings", "") or original_ml.get("key_findings", ""),
+        "prediction_target": result.get("prediction_target", "") or original_ml.get("prediction_target", ""),
+        "key_findings": result.get("key_findings", "") or original_ml.get("key_findings", ""),
         "extracted_by": "llm",
-        "summary_date": config.LLM_CONFIG.get("summary_date", ""),
     }
 
     from datetime import datetime, timezone
     enhanced["summary_date"] = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
     # 更新 is_ml
-    if "is_ml" in cls_result:
-        record["is_ml"] = bool(cls_result["is_ml"])
+    if "is_ml" in result:
+        record["is_ml"] = bool(result["is_ml"])
 
     return enhanced
+
+
+def _test_llm(client) -> bool:
+    """快速测试 LLM API 是否可用（发一个最小请求），返回 True/False。"""
+    try:
+        resp = client.chat.completions.create(
+            model=config.LLM_CONFIG["model"],
+            messages=[{"role": "user", "content": "Reply OK"}],
+            temperature=0,
+            max_tokens=5,
+        )
+        return bool(resp.choices[0].message.content)
+    except Exception as exc:
+        print(f"  [LLM TEST] API 不可用: {exc}")
+        print(f"  [LLM TEST] model={config.LLM_CONFIG['model']}, base_url={config.LLM_CONFIG['base_url']}")
+        return False
 
 
 def enhance_records(records: list[dict], batch_delay: float = 1.0) -> None:
@@ -183,21 +203,50 @@ def enhance_records(records: list[dict], batch_delay: float = 1.0) -> None:
 
     batch_delay 默认 1.0s：每篇 2 次 LLM 调用，约 2 req/s，
     远低于 NVIDIA NIM 免费额度的 40 RPM 限速，可安全用于免费 API。
+
+    跳过已有 LLM 摘要的记录（extracted_by == "llm"），避免重复调用。
     """
     client = _get_client()
-    total = len(records)
-    success = 0
 
-    for i, r in enumerate(records, 1):
+    # 先测试 API 是否可用，避免对不可用的 API 发起数百次无效调用
+    if not _test_llm(client):
+        print("  ⚠️ LLM API 不可用，跳过增强，保留规则抽取结果")
+        return
+
+    # 过滤：只增强规则抽取的记录，跳过已有 LLM 摘要的
+    to_enhance = [r for r in records
+                  if r.get("ml_summary", {}).get("extracted_by") != "llm"]
+    skipped = len(records) - len(to_enhance)
+    if skipped:
+        print(f"  (跳过 {skipped} 篇已有 LLM 摘要的记录)")
+
+    total = len(to_enhance)
+    if total == 0:
+        print("  所有记录已有 LLM 摘要，无需增强")
+        return
+
+    success = 0
+    fail_streak = 0  # 连续失败计数
+    MAX_FAIL_STREAK = 5  # 连续失败超过此阈值则提前终止
+
+    for i, r in enumerate(to_enhance, 1):
         title = r.get("title", "")[:60]
         print(f"  [{i}/{total}] {title}...", end=" ", flush=True)
         try:
             r["ml_summary"] = enhance_single(r, client)
             success += 1
+            fail_streak = 0
             print("OK")
         except Exception as exc:
+            fail_streak += 1
             print(f"SKIP ({exc})")
             # 保留已有规则抽取结果
+
+        # 连续失败过多，提前终止 LLM 增强（API 可能宕机/模型名错误）
+        if fail_streak >= MAX_FAIL_STREAK:
+            print(f"\n  ⚠️ 连续 {fail_streak} 次 LLM 调用失败，提前终止增强（API 可能不可用）")
+            print(f"  剩余 {total - i} 篇保留规则抽取结果")
+            break
 
         if batch_delay and i < total:
             time.sleep(batch_delay)

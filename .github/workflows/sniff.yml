@@ -26,9 +26,9 @@ on:
   workflow_dispatch:
     inputs:
       days:
-        description: "Only fetch papers from last N days (0 = all)"
+        description: "Only fetch papers from last N days (0 = all, default 7)"
         required: false
-        default: "0"
+        default: "7"
       per_query:
         description: "Papers per search query (default 25)"
         required: false
@@ -48,7 +48,7 @@ concurrency:
 jobs:
   sniff:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
 
     steps:
       # -------------------------------------------------------------------
