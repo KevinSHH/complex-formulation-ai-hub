@@ -1,6 +1,7 @@
-# ComplexForm-AI Hub - Daily SCI Paper Sniffer Pipeline
-# =======================================================
-# 每日定时执行：OpenAlex/PubMed 检索 -> 去重 -> 规则抽取 -> LLM摘要(可选) -> 入库 -> 导出前端JSON -> commit
+# ComplexForm-AI Hub - Daily SCI Paper Sniffer + Auto Deploy
+# =================================================================
+# 每日定时执行：OpenAlex/PubMed 检索 -> 去重 -> 规则抽取 -> LLM摘要(可选)
+#   -> 入库 -> 导出前端JSON -> commit -> 构建前端 -> 部署到 GitHub Pages
 #
 # 触发方式：
 #   1. 定时：每日 UTC 02:00（北京时间 10:00），自动增量检索（最近 7 天）
@@ -19,9 +20,8 @@
 #   2. nvidia/nemotron-3-ultra-550b-a55b（次选）
 #   3. deepseek-ai/deepseek-v4-flash（保底）
 #
-# 数据流：
-#   每日嗅探更新 data/ 并 commit 后，deploy.yml 监听 data/frontend/** 变更
-#   会自动触发重新构建并部署到 GitHub Pages，网站统计数据随之刷新。
+# 注意：嗅探和部署在同一个 workflow 中，因为 GitHub Actions 的
+#   github-actions[bot] push 不会触发其他 workflow（已知限制）。
 
 name: Daily Paper Sniffer
 
@@ -45,14 +45,14 @@ on:
         default: "false"
 
 permissions:
-  contents: write  # Required for git push
+  contents: write  # Required for git push + gh-pages deploy
 
 concurrency:
   group: sniffer-run
   cancel-in-progress: false
 
 jobs:
-  sniff:
+  sniff-and-deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 60
 
@@ -74,9 +74,9 @@ jobs:
           python-version: "3.12"
 
       # -------------------------------------------------------------------
-      # 3. Install dependencies
+      # 3. Install Python dependencies
       # -------------------------------------------------------------------
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: |
           pip install --no-cache-dir -r requirements.txt
 
@@ -113,19 +113,68 @@ jobs:
           python src/sniffer.py $ARGS
 
       # -------------------------------------------------------------------
-      # 5. Commit updated data (triggers deploy.yml via data/frontend/** path)
+      # 5. Commit updated data
       # -------------------------------------------------------------------
       - name: Commit updated data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Check if there are changes
           if git diff --quiet data/; then
             echo "No changes to commit"
+            echo "HAS_CHANGES=false" >> $GITHUB_ENV
           else
             git add data/
             git commit -m "chore(data): daily sniffer update $(date -u +%Y-%m-%d)"
             git push
-            echo "Data committed and pushed - deploy.yml will auto-rebuild GitHub Pages"
+            echo "Data committed and pushed"
+            echo "HAS_CHANGES=true" >> $GITHUB_ENV
           fi
+
+      # -------------------------------------------------------------------
+      # 6. Setup Node.js (for frontend build)
+      # -------------------------------------------------------------------
+      - name: Setup Node.js
+        if: env.HAS_CHANGES == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+
+      # -------------------------------------------------------------------
+      # 7. Build frontend
+      # -------------------------------------------------------------------
+      - name: Install frontend dependencies
+        if: env.HAS_CHANGES == 'true'
+        working-directory: frontend
+        run: npm install --legacy-peer-deps
+
+      - name: Build frontend
+        if: env.HAS_CHANGES == 'true'
+        working-directory: frontend
+        run: npm run build
+
+      - name: Copy data to dist
+        if: env.HAS_CHANGES == 'true'
+        run: |
+          mkdir -p frontend/dist/data
+          cp data/frontend/papers.json frontend/dist/data/
+          cp data/frontend/taxonomy.json frontend/dist/data/
+          cp data/frontend/meta.json frontend/dist/data/
+
+      - name: Add .nojekyll
+        if: env.HAS_CHANGES == 'true'
+        run: touch frontend/dist/.nojekyll
+
+      # -------------------------------------------------------------------
+      # 8. Deploy to GitHub Pages
+      # -------------------------------------------------------------------
+      - name: Deploy to GitHub Pages
+        if: env.HAS_CHANGES == 'true'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: frontend/dist
+          publish_branch: gh-pages
+          force_orphan: true
