@@ -69,40 +69,40 @@ def search_openalex(query: str, per_page: int = 25, mailto: str = "",
     records = []
     for work in data.get("results", []):
         # 反转 inverted index 重建摘要
-        abstract = _reconstruct_abstract(work.get("abstract_inverted_index", {}))
+        abstract = _reconstruct_abstract(work.get("abstract_inverted_index") or {})
 
         authors = []
-        for a in work.get("authorships", [])[:10]:
-            author = a.get("author", {})
+        for a in (work.get("authorships") or [])[:10]:
+            author = a.get("author") or {}
             name = author.get("display_name", "")
             if name:
                 authors.append(name)
 
         topics = []
-        for t in work.get("topics", [])[:5]:
+        for t in (work.get("topics") or [])[:5]:
             name = t.get("display_name", "")
             if name:
                 topics.append(name)
 
-        oa = work.get("open_access", {})
+        oa = work.get("open_access") or {}
         doi = work.get("doi", "") or ""
         if doi and doi.startswith("https://doi.org/"):
             doi = doi[len("https://doi.org/"):]
 
         records.append({
-            "id": f"openalex-{work.get('id', '').split('/')[-1]}",
+            "id": f"openalex-{(work.get('id') or '').split('/')[-1]}",
             "source": "openalex",
             "domain": "",  # 由调用方填充
             "domain_label": "",
             "title": work.get("display_name", "") or "",
             "authors": authors,
-            "journal": (work.get("primary_location", {}) or {}).get("source", {}).get("display_name", "") if work.get("primary_location") else "",
+            "journal": ((work.get("primary_location") or {}).get("source") or {}).get("display_name", ""),
             "publication_year": work.get("publication_year"),
             "doi": doi,
             "url": work.get("doi", "") or "",
             "oa_url": oa.get("oa_url", "") or "",
             "abstract": abstract,
-            "cited_by_count": work.get("cited_by_count", 0),
+            "cited_by_count": work.get("cited_by_count") or 0,
             "topics": topics,
             "ml_summary": {},
             "is_ml": False,
