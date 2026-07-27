@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Routes, Route, NavLink, useLocation } from "react-router-dom";
 import { usePlatformData, useScrollReveal } from "./hooks/useData.js";
 import { LanguageProvider, useLang, DOMAIN_NAMES } from "./i18n/index.jsx";
@@ -8,6 +8,9 @@ import PaperLibrary from "./pages/PaperLibrary.jsx";
 import Taxonomy from "./pages/Taxonomy.jsx";
 import KnowledgeGraph from "./pages/KnowledgeGraph.jsx";
 import CaseStudy from "./pages/CaseStudy.jsx";
+import MLBasics from "./pages/MLBasics.jsx";
+import MLAlgorithms from "./pages/MLAlgorithms.jsx";
+import MLWorkflow from "./pages/MLWorkflow.jsx";
 
 function Logo() {
   return (
@@ -25,6 +28,8 @@ function Logo() {
 
 function Header({ meta }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mlOpen, setMlOpen] = useState(false);
+  const mlTimeout = useRef(null);
   const location = useLocation();
   const { t } = useLang();
 
@@ -36,8 +41,20 @@ function Header({ meta }) {
     { path: "/case-study", label: t("nav_case") },
   ];
 
+  const ML_ITEMS = [
+    { path: "/ml-basics", label: t("nav_ml_basics") },
+    { path: "/ml-algorithms", label: t("nav_ml_algorithms") },
+    { path: "/ml-workflow", label: t("nav_ml_workflow") },
+  ];
+
+  const isMLActive = location.pathname.startsWith("/ml-");
+
   // Close mobile menu on route change
   useEffect(() => { setMenuOpen(false); }, [location.pathname]);
+
+  // Desktop ML dropdown handlers (hover + click)
+  const enterML = () => { clearTimeout(mlTimeout.current); setMlOpen(true); };
+  const leaveML = () => { mlTimeout.current = setTimeout(() => setMlOpen(false), 200); };
 
   return (
     <header className="border-b border-stone-400/25 bg-white/85 backdrop-blur-md sticky top-0 z-50">
@@ -73,6 +90,48 @@ function Header({ meta }) {
               {item.label}
             </NavLink>
           ))}
+          {/* ML Foundations dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={enterML}
+            onMouseLeave={leaveML}
+          >
+            <button
+              onClick={() => setMlOpen((v) => !v)}
+              className={`flex items-center gap-1 px-3 py-1.5 text-[13px] font-medium rounded-md transition-all duration-200 ${
+                isMLActive
+                  ? "text-ink-900 bg-ink-200/50"
+                  : "text-stone-700 hover:text-ink-900 hover:bg-stone-300/40"
+              }`}
+            >
+              {t("nav_ml")}
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" className={`transition-transform ${mlOpen ? "rotate-180" : ""}`}>
+                <path d="M2 4 L5 7 L8 4" />
+              </svg>
+            </button>
+            {mlOpen && (
+              <div className="absolute top-full left-0 pt-1 z-50">
+                <div className="bg-white border border-stone-400/25 rounded-lg shadow-lg py-1 min-w-[160px]">
+                  {ML_ITEMS.map((item) => (
+                    <NavLink
+                      key={item.path}
+                      to={item.path}
+                      onClick={() => setMlOpen(false)}
+                      className={({ isActive }) =>
+                        `block px-3 py-1.5 text-[13px] font-medium rounded-md transition-colors ${
+                          isActive
+                            ? "text-ink-900 bg-ink-200/40"
+                            : "text-stone-700 hover:text-ink-900 hover:bg-stone-300/40"
+                        }`
+                      }
+                    >
+                      {item.label}
+                    </NavLink>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         </nav>
 
         {/* Desktop right side */}
@@ -84,7 +143,7 @@ function Header({ meta }) {
           )}
           <LangSwitch />
           <a
-            href="https://github.com"
+            href="https://github.com/KevinSHH/complex-formulation-ai-hub"
             target="_blank"
             rel="noopener noreferrer"
             className="link-underline text-stone-700 hover:text-ink-900 transition-colors"
@@ -131,6 +190,24 @@ function Header({ meta }) {
               onClick={() => setMenuOpen(false)}
               className={({ isActive }) =>
                 `block px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                  isActive
+                    ? "text-ink-900 bg-ink-200/50"
+                    : "text-stone-700 hover:text-ink-900 hover:bg-stone-300/40"
+                }`
+              }
+            >
+              {item.label}
+            </NavLink>
+          ))}
+          {/* ML Foundations sub-items on mobile */}
+          <p className="px-3 py-1 text-[11px] font-mono text-amber-500 uppercase tracking-wider">{t("nav_ml")}</p>
+          {ML_ITEMS.map((item) => (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              onClick={() => setMenuOpen(false)}
+              className={({ isActive }) =>
+                `block px-6 py-2 text-sm font-medium rounded-md transition-colors ${
                   isActive
                     ? "text-ink-900 bg-ink-200/50"
                     : "text-stone-700 hover:text-ink-900 hover:bg-stone-300/40"
@@ -281,6 +358,9 @@ function Shell() {
             path="/case-study"
             element={<CaseStudy />}
           />
+          <Route path="/ml-basics" element={<MLBasics />} />
+          <Route path="/ml-algorithms" element={<MLAlgorithms />} />
+          <Route path="/ml-workflow" element={<MLWorkflow />} />
         </Routes>
       </main>
 

@@ -36,6 +36,10 @@ const STRINGS = {
     nav_taxonomy: "Taxonomy",
     nav_graph: "Knowledge graph",
     nav_case: "Case study",
+    nav_ml: "ML Foundations",
+    nav_ml_basics: "ML Basics",
+    nav_ml_algorithms: "ML Algorithms",
+    nav_ml_workflow: "ML Workflow",
 
     // Header / footer
     papers_unit: "papers",
@@ -185,6 +189,10 @@ const STRINGS = {
     nav_taxonomy: "分类体系",
     nav_graph: "知识图谱",
     nav_case: "案例研究",
+    nav_ml: "机器学习基础",
+    nav_ml_basics: "ML 基础",
+    nav_ml_algorithms: "ML 算法",
+    nav_ml_workflow: "ML 工作流",
 
     papers_unit: "篇文献",
     domains_unit: "个领域",

@@ -20,6 +20,10 @@ ComplexForm-AI Hub is an open-source academic platform that curates and visualiz
 
 - **Paper Library**: 90+ curated papers with ML/AI classification, formulation type extraction, and DOI links. Seed papers are integrated by domain (no separate "local library" section) and marked with a **Curated** badge; daily-sniffed papers are marked **Latest**.
 - **Case Study**: Interactive walkthrough of FormulationLAI - a full reproduction of the J. Control. Release 389 (2026) 114418 framework for long-acting injectable formulation development (dataset -> ML prediction -> PBPK/PD -> closed-loop optimization -> MD validation)
+- **ML Foundations**: A three-page learning module for formulation scientists new to machine learning:
+  - **ML Basics** (`/ml-basics`): What is ML vs. traditional programming, three learning paradigms, formulation data types & feature engineering, train/val/test splits, overfitting, cross-validation, evaluation metrics (R², RMSE, MAE, AUC) — with SVG diagrams, formulas, and scikit-learn code snippets
+  - **ML Algorithms** (`/ml-algorithms`): Decision-tree guided algorithm selector, real collection frequency chart (619 papers), and deep-dive cards for 9 method families (Linear/PLS, Random Forest, XGBoost, SVM, ANN, CNN, Gaussian Process & Bayesian Opt, Genetic Algorithm, Clustering & PCA, Generative Models) — each with intuition, formula, runnable code, and a real paper from the hub's collection
+  - **ML Workflow** (`/ml-workflow`): Seven-step project workflow (Define → Collect → Clean → Feature Eng. → Model → Validate → Deploy), QbD/DoE integration diagram, model validation strategies, GxP/CSV compliance essentials, and a curated learning path with recommended books, tools, and paper-reading guide
 - **Daily Sniffer**: Automated SCI paper discovery via OpenAlex + PubMed APIs
 - **LLM Summarization**: Two-step prompt chain for structured academic summaries
 - **Interactive Dashboard**: Domain distribution, publication trends, AI method taxonomy
@@ -69,7 +73,8 @@ complexform-ai-hub/
 │   ├── build_taxonomy.py   # Aggregation statistics
 │   └── export_frontend.py  # Frontend JSON exporter
 ├── frontend/               # React frontend
-│   ├── src/pages/          # 5 pages: Overview, Library, Taxonomy, Graph, CaseStudy
+│   ├── src/pages/          # 8 pages: Overview, Library, Taxonomy, Graph, CaseStudy, MLBasics, MLAlgorithms, MLWorkflow
+│   ├── src/components/ml/  # Shared ML Foundations UI components (CodeBlock, Formula, CaseCard, etc.)
 │   ├── public/case-study/  # Standalone FormulationLAI interactive walkthrough
 │   ├── Dockerfile          # HF Spaces Docker
 │   └── nginx.conf          # nginx config
