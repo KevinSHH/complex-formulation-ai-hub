@@ -15,7 +15,9 @@ const DOMAIN_COLORS = {
  * Edges: domain -> model (weight = paper count)
  */
 function buildGraph(papers, taxonomy, domainLabel) {
-  if (!taxonomy) return { nodes: [], links: [] };
+  if (!taxonomy || !taxonomy.meta || !taxonomy.meta.domains || !taxonomy.ai_models) {
+    return { nodes: [], links: [] };
+  }
 
   const domains = Object.keys(taxonomy.meta.domains);
   const models = Object.keys(taxonomy.ai_models);
@@ -87,8 +89,12 @@ export default function KnowledgeGraph({ papers, taxonomy }) {
     function initGraph() {
       const width = container.clientWidth || 800;
       const height = 500;
-      canvas.width = width;
-      canvas.height = height;
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       // Initialize node positions
       const nodes = graphData.nodes.map((n) => ({
@@ -234,11 +240,12 @@ export default function KnowledgeGraph({ papers, taxonomy }) {
 
     // Use ResizeObserver to init once container has real width
     let cleanup = null;
+    let ro = null;
     if (container.clientWidth > 0) {
       cleanup = initGraph();
     } else {
-      const ro = new ResizeObserver((entries) => {
-        if (entries[0].contentRect.width > 0) {
+      ro = new ResizeObserver((entries) => {
+        if (entries[0].contentRect.width > 0 && !cleanup) {
           ro.disconnect();
           cleanup = initGraph();
         }
@@ -247,6 +254,7 @@ export default function KnowledgeGraph({ papers, taxonomy }) {
     }
 
     return () => {
+      if (ro) ro.disconnect();
       if (cleanup) cleanup();
     };
   }, [graphData]);  // Only depend on graphData, NOT hovered

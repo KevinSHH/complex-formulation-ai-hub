@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useLang } from "../i18n/index.jsx";
 import {
   PageHero, SectionHead, SubHead, CodeBlock, Formula, ConceptCard, Callout, SideNav, Tag,
@@ -62,9 +63,9 @@ function SvgTraditionalVsML({ labels }) {
 
 function SvgParadigms({ labels }) {
   const cols = [
-    { x: 20, color: "#2a7ab0", bg: "#E6F1FB", title: labels.sup, d1: labels.supD1, d2: labels.supD2 },
-    { x: 245, color: "#BA7517", bg: "#FAEEDA", title: labels.unsup, d1: labels.unsupD1, d2: labels.unsupD2 },
-    { x: 470, color: "#1D9E75", bg: "#E3F3EC", title: labels.rl, d1: labels.rlD1, d2: labels.rlD2 },
+    { x: 20, color: "#2a7ab0", bg: "#E6F1FB", title: labels.sup, d1: labels.supD1, d2: labels.supD2, icon: "X→y" },
+    { x: 245, color: "#BA7517", bg: "#FAEEDA", title: labels.unsup, d1: labels.unsupD1, d2: labels.unsupD2, icon: "?" },
+    { x: 470, color: "#1D9E75", bg: "#E3F3EC", title: labels.rl, d1: labels.rlD1, d2: labels.rlD2, icon: "↻" },
   ];
   return (
     <svg viewBox="0 0 680 210" className="w-full h-auto" role="img" aria-label={labels.aria}>
@@ -559,14 +560,14 @@ export default function MLBasics() {
           <section>
             <SectionHead id="next" kicker={c.s7k} title={c.s7t} sub={c.s7sub} />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-              <a href="#/ml-algorithms" className="group bg-white border border-stone-400/20 rounded-lg p-6 hover:border-ink-400/50 hover:shadow-md transition-all">
+              <Link to="/ml-algorithms" className="group bg-white border border-stone-400/20 rounded-lg p-6 hover:border-ink-400/50 hover:shadow-md transition-all">
                 <p className="font-display text-lg text-ink-900 group-hover:text-ink-700">{c.nextAlg}</p>
                 <p className="text-[13px] text-stone-600 mt-2">{c.nextAlgSub}</p>
-              </a>
-              <a href="#/ml-workflow" className="group bg-white border border-stone-400/20 rounded-lg p-6 hover:border-ink-400/50 hover:shadow-md transition-all">
+              </Link>
+              <Link to="/ml-workflow" className="group bg-white border border-stone-400/20 rounded-lg p-6 hover:border-ink-400/50 hover:shadow-md transition-all">
                 <p className="font-display text-lg text-ink-900 group-hover:text-ink-700">{c.nextFlow}</p>
                 <p className="text-[13px] text-stone-600 mt-2">{c.nextFlowSub}</p>
-              </a>
+              </Link>
             </div>
           </section>
         </div>

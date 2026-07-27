@@ -185,6 +185,10 @@ export function SideNav({ items, label }) {
           <li key={it.id}>
             <a
               href={`#${it.id}`}
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById(it.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+              }}
               className="block -ml-px pl-4 py-1 text-[12.5px] text-stone-600 border-l-2 border-transparent hover:text-ink-900 hover:border-amber-500 transition-colors"
             >
               {it.label}
