@@ -66,17 +66,23 @@ export default function Taxonomy({ taxonomy, DomainBadges }) {
 
   const modelData = useMemo(() => {
     if (!taxonomy) return [];
-    return Object.entries(taxonomy.ai_models).map(([name, count]) => ({ name, count }));
+    return Object.entries(taxonomy.ai_models)
+      .sort((a, b) => b[1] - a[1])
+      .map(([name, count]) => ({ name, count }));
   }, [taxonomy]);
 
   const formulationData = useMemo(() => {
     if (!taxonomy) return [];
-    return Object.entries(taxonomy.formulation_types).map(([name, count]) => ({ name, count }));
+    return Object.entries(taxonomy.formulation_types)
+      .sort((a, b) => b[1] - a[1])
+      .map(([name, count]) => ({ name, count }));
   }, [taxonomy]);
 
   const featureData = useMemo(() => {
     if (!taxonomy) return [];
-    return Object.entries(taxonomy.input_features).map(([name, count]) => ({ name, count }));
+    return Object.entries(taxonomy.input_features)
+      .sort((a, b) => b[1] - a[1])
+      .map(([name, count]) => ({ name, count }));
   }, [taxonomy]);
 
   // Domain-model matrix for the heatmap-like display

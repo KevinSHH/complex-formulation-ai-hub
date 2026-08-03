@@ -19,10 +19,12 @@ export function usePlatformData() {
     async function load() {
       try {
         const base = import.meta.env.BASE_URL || "./";
+        // no-store: always fetch the freshest daily-sniffer JSON, never a cached copy.
+        const opts = { cache: "no-store" };
         const [pRes, tRes, mRes] = await Promise.all([
-          fetch(`${base}data/papers.json`),
-          fetch(`${base}data/taxonomy.json`),
-          fetch(`${base}data/meta.json`),
+          fetch(`${base}data/papers.json`, opts),
+          fetch(`${base}data/taxonomy.json`, opts),
+          fetch(`${base}data/meta.json`, opts),
         ]);
 
         if (!pRes.ok) throw new Error(`papers.json: ${pRes.status}`);

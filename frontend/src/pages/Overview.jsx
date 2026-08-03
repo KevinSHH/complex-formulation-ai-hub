@@ -43,30 +43,34 @@ export default function Overview({ papers, taxonomy, meta, DomainBadges }) {
   const { t, domainName } = useLang();
   const domainLabel = useDomainLabel();
 
-  // Domain distribution
+  // Domain distribution (sorted by total desc for stable ordering)
   const domainData = useMemo(() => {
     if (!taxonomy) return [];
-    return Object.entries(taxonomy.meta.domains).map(([key, d]) => ({
-      name: domainName(key),
-      total: d.total,
-      ml: d.ml,
-      key,
-      color: DOMAIN_COLORS[key] || "#888",
-    }));
+    return Object.entries(taxonomy.meta.domains)
+      .map(([key, d]) => ({
+        name: domainName(key),
+        total: d.total,
+        ml: d.ml,
+        key,
+        color: DOMAIN_COLORS[key] || "#888",
+      }))
+      .sort((a, b) => b.total - a.total);
   }, [taxonomy, domainName]);
 
-  // Year trend
+  // Year trend (explicitly sorted ascending by year)
   const yearData = useMemo(() => {
     if (!taxonomy) return [];
     return Object.entries(taxonomy.year_trend)
       .filter(([y]) => parseInt(y) >= 2020)
+      .sort((a, b) => parseInt(a[0]) - parseInt(b[0]))
       .map(([year, count]) => ({ year, count }));
   }, [taxonomy]);
 
-  // Top AI models
+  // Top AI models (sorted by count desc)
   const modelData = useMemo(() => {
     if (!taxonomy) return [];
     return Object.entries(taxonomy.ai_models)
+      .sort((a, b) => b[1] - a[1])
       .slice(0, 8)
       .map(([name, count]) => ({ name, count }));
   }, [taxonomy]);

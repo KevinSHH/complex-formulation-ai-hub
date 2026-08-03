@@ -20,7 +20,17 @@ function buildGraph(papers, taxonomy, domainLabel) {
   }
 
   const domains = Object.keys(taxonomy.meta.domains);
-  const models = Object.keys(taxonomy.ai_models);
+  // Only show the top-N models to keep the graph legible; group the rest as "Other".
+  const TOP_N = 12;
+  const sortedModels = Object.entries(taxonomy.ai_models)
+    .sort((a, b) => b[1] - a[1]);
+  const topModels = sortedModels.slice(0, TOP_N).map(([m]) => m);
+  const otherCount = sortedModels.slice(TOP_N).reduce((s, [, c]) => s + c, 0);
+  const models = otherCount > 0 ? [...topModels, "__other__"] : topModels;
+
+  // Normalize bubble sizes with sqrt scaling so big counts don't blow up the canvas.
+  const maxModelCount = Math.max(...Object.values(taxonomy.ai_models), 1);
+  const modelSize = (c) => 9 + Math.sqrt(c / maxModelCount) * 22;
 
   const nodes = [
     ...domains.map((d) => ({
@@ -28,30 +38,49 @@ function buildGraph(papers, taxonomy, domainLabel) {
       label: domainLabel(d),
       type: "domain",
       color: DOMAIN_COLORS[d] || "#888",
-      size: 15 + (taxonomy.meta.domains[d]?.total || 0) * 0.5,
+      size: 16 + Math.sqrt((taxonomy.meta.domains[d]?.total || 0)) * 1.6,
       count: taxonomy.meta.domains[d]?.total || 0,
     })),
-    ...models.map((m) => ({
-      id: `model:${m}`,
-      label: m,
-      type: "model",
-      color: "#444441",
-      size: 8 + (taxonomy.ai_models[m] || 0) * 1.5,
-      count: taxonomy.ai_models[m] || 0,
-    })),
+    ...models.map((m) => {
+      const isOther = m === "__other__";
+      const c = isOther ? otherCount : (taxonomy.ai_models[m] || 0);
+      return {
+        id: `model:${m}`,
+        label: isOther ? "Other" : m,
+        type: "model",
+        color: isOther ? "#9b9891" : "#444441",
+        size: modelSize(c),
+        count: c,
+      };
+    }),
   ];
 
   const links = [];
   const matrix = taxonomy.domain_model_matrix || {};
   for (const [domain, modelCounts] of Object.entries(matrix)) {
     for (const [model, count] of Object.entries(modelCounts)) {
-      if (count > 0) {
+      if (count <= 0) continue;
+      const inTop = topModels.includes(model);
+      if (inTop) {
         links.push({
           source: `domain:${domain}`,
           target: `model:${model}`,
           value: count,
           color: DOMAIN_COLORS[domain] || "#888",
         });
+      } else if (otherCount > 0) {
+        // Fold non-top models into the "Other" node.
+        const existing = links.find(
+          (l) => l.source === `domain:${domain}` && l.target === "model:__other__"
+        );
+        if (existing) existing.value += count;
+        else
+          links.push({
+            source: `domain:${domain}`,
+            target: "model:__other__",
+            value: count,
+            color: DOMAIN_COLORS[domain] || "#888",
+          });
       }
     }
   }
@@ -96,14 +125,22 @@ export default function KnowledgeGraph({ papers, taxonomy }) {
       canvas.style.height = height + "px";
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      // Initialize node positions
-      const nodes = graphData.nodes.map((n) => ({
-        ...n,
-        x: width / 2 + (Math.random() - 0.5) * 200,
-        y: height / 2 + (Math.random() - 0.5) * 200,
-        vx: 0,
-        vy: 0,
-      }));
+      // Initialize node positions on a ring (deterministic spread, avoids the
+      // random-clump-then-explode look and settles much faster).
+      const cx = width / 2;
+      const cy = height / 2;
+      const nCount = graphData.nodes.length;
+      const nodes = graphData.nodes.map((n, i) => {
+        const angle = (i / nCount) * Math.PI * 2;
+        const r = n.type === "domain" ? 90 : 190;
+        return {
+          ...n,
+          x: cx + Math.cos(angle) * r + (Math.random() - 0.5) * 12,
+          y: cy + Math.sin(angle) * r + (Math.random() - 0.5) * 12,
+          vx: 0,
+          vy: 0,
+        };
+      });
 
       const nodeMap = {};
       nodes.forEach((n) => { nodeMap[n.id] = n; });
@@ -115,21 +152,26 @@ export default function KnowledgeGraph({ papers, taxonomy }) {
         color: l.color,
       })).filter((l) => l.source && l.target);
 
-      // Force simulation
-      let animationId;
-      const damping = 0.85;
-      const repulsion = 800;
-      const attraction = 0.02;
-      const centerForce = 0.005;
+      // Force simulation with alpha cooling: starts hot, decays, then FREEZES.
+      // This is the fix for the "nodes drift forever / never settle" bug.
+      let animationId = null;
+      let settled = false;
+      const damping = 0.8;
+      const repulsion = 2600;
+      const attraction = 0.015;
+      const centerForce = 0.008;
+      let alpha = 1.0;
+      const alphaDecay = 0.012;   // gradual cooling so nodes fully separate
+      const alphaMin = 0.015;     // floor; combined with velocity check to stop
 
-      function simulate() {
-        // Repulsion
+      function step() {
+        // Repulsion (scaled by alpha so forces fade as layout cools)
         for (let i = 0; i < nodes.length; i++) {
           for (let j = i + 1; j < nodes.length; j++) {
             const dx = nodes[i].x - nodes[j].x;
             const dy = nodes[i].y - nodes[j].y;
             const dist = Math.max(Math.sqrt(dx * dx + dy * dy), 1);
-            const force = repulsion / (dist * dist);
+            const force = (repulsion * alpha) / (dist * dist);
             const fx = (dx / dist) * force;
             const fy = (dy / dist) * force;
             nodes[i].vx += fx;
@@ -144,7 +186,7 @@ export default function KnowledgeGraph({ papers, taxonomy }) {
           const dx = link.target.x - link.source.x;
           const dy = link.target.y - link.source.y;
           const dist = Math.max(Math.sqrt(dx * dx + dy * dy), 1);
-          const force = attraction * dist;
+          const force = attraction * dist * alpha;
           const fx = (dx / dist) * force;
           const fy = (dy / dist) * force;
           link.source.vx += fx;
@@ -155,28 +197,35 @@ export default function KnowledgeGraph({ papers, taxonomy }) {
 
         // Center gravity
         for (const n of nodes) {
-          n.vx += (width / 2 - n.x) * centerForce;
-          n.vy += (height / 2 - n.y) * centerForce;
+          n.vx += (cx - n.x) * centerForce * alpha;
+          n.vy += (cy - n.y) * centerForce * alpha;
         }
 
-        // Update positions
+        // Update positions & track max movement for true settle detection
+        let maxMove = 0;
         for (const n of nodes) {
           n.vx *= damping;
           n.vy *= damping;
           n.x += n.vx;
           n.y += n.vy;
           // Boundaries
-          n.x = Math.max(n.size, Math.min(width - n.size, n.x));
-          n.y = Math.max(n.size, Math.min(height - n.size, n.y));
+          n.x = Math.max(n.size + 4, Math.min(width - n.size - 4, n.x));
+          n.y = Math.max(n.size + 4, Math.min(height - n.size - 4, n.y));
+          maxMove = Math.max(maxMove, Math.abs(n.vx) + Math.abs(n.vy));
         }
 
-        // Render
+        // Cool down
+        alpha = Math.max(alphaMin, alpha - alphaDecay);
+        return maxMove;
+      }
+
+      function render() {
         ctx.clearRect(0, 0, width, height);
 
         // Draw links
         for (const link of links) {
           ctx.strokeStyle = link.color + "40";
-          ctx.lineWidth = Math.max(0.5, link.value * 0.5);
+          ctx.lineWidth = Math.max(0.5, Math.sqrt(link.value) * 0.9);
           ctx.beginPath();
           ctx.moveTo(link.source.x, link.source.y);
           ctx.lineTo(link.target.x, link.target.y);
@@ -190,21 +239,43 @@ export default function KnowledgeGraph({ papers, taxonomy }) {
           ctx.beginPath();
           ctx.arc(n.x, n.y, n.size, 0, Math.PI * 2);
           ctx.fillStyle = n.color;
-          ctx.globalAlpha = isHovered ? 1 : 0.85;
+          ctx.globalAlpha = isHovered ? 1 : 0.88;
           ctx.fill();
           ctx.globalAlpha = 1;
 
-          // Label
+          // Label: always for domains, on hover for models (avoids clutter)
           if (n.type === "domain" || isHovered) {
             ctx.fillStyle = "#2C2C2A";
             ctx.font = `${n.type === "domain" ? "500 " : ""}11px "Plus Jakarta Sans", sans-serif`;
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
-            ctx.fillText(n.label, n.x, n.y + n.size + 14);
+            ctx.fillText(n.label, n.x, n.y + n.size + 13);
           }
         }
+      }
 
-        animationId = requestAnimationFrame(simulate);
+      let stillFrames = 0;
+      let frameCount = 0;
+      const MAX_FRAMES = 400; // hard cap: never animate forever
+      function simulate() {
+        frameCount++;
+        if (!settled) {
+          const maxMove = step();
+          // Settled only when cooled AND nodes have essentially stopped moving.
+          if (alpha <= alphaMin && maxMove < 0.15) {
+            stillFrames++;
+            if (stillFrames >= 3) settled = true; // stable for a few frames
+          } else {
+            stillFrames = 0;
+          }
+          if (frameCount >= MAX_FRAMES) settled = true; // safety stop
+        }
+        render();
+        if (!settled) {
+          animationId = requestAnimationFrame(simulate);
+        } else {
+          animationId = null; // stop the loop — graph is now static & stable
+        }
       }
 
       simulate();
@@ -226,8 +297,13 @@ export default function KnowledgeGraph({ papers, taxonomy }) {
 
       function handleMove(e) {
         const n = getMouseNode(e);
-        setHovered(n);
-        canvas.style.cursor = n ? "pointer" : "default";
+        const prev = hoveredRef.current;
+        if ((n?.id || null) !== (prev?.id || null)) {
+          setHovered(n);
+          canvas.style.cursor = n ? "pointer" : "default";
+          // Loop is stopped once settled, so manually repaint to show hover state.
+          if (settled) render();
+        }
       }
 
       canvas.addEventListener("mousemove", handleMove);
@@ -265,6 +341,7 @@ export default function KnowledgeGraph({ papers, taxonomy }) {
       return papers.filter((p) => p.domain === hovered.id.replace("domain:", "")).slice(0, 5);
     } else if (hovered.type === "model") {
       const modelName = hovered.id.replace("model:", "");
+      if (modelName === "__other__") return []; // aggregate node, no direct mapping
       return papers
         .filter((p) => p.ml_summary?.ai_models_all?.includes(modelName))
         .slice(0, 5);
