@@ -1,7 +1,7 @@
 {
   "meta": {
-    "total_papers": 1328,
-    "total_ml_papers": 460,
+    "total_papers": 1373,
+    "total_ml_papers": 471,
     "domains": {
       "in_situ_gel": {
         "label": "In Situ Gel",
@@ -14,44 +14,44 @@
         "label": "Liposome",
         "label_cn": "脂质体",
         "icon": "🧫",
-        "total": 457,
-        "ml": 173
+        "total": 478,
+        "ml": 180
       },
       "microsphere": {
         "label": "Microsphere",
         "label_cn": "微球",
         "icon": "⚪",
-        "total": 242,
-        "ml": 79
+        "total": 250,
+        "ml": 80
       },
       "nanocrystal": {
         "label": "Nanocrystal",
         "label_cn": "纳米晶",
         "icon": "💎",
-        "total": 278,
-        "ml": 105
+        "total": 290,
+        "ml": 107
       },
       "plga_design": {
         "label": "PLGA Design",
         "label_cn": "PLGA 设计",
         "icon": "🧬",
-        "total": 215,
-        "ml": 71
+        "total": 219,
+        "ml": 72
       }
     }
   },
   "ai_models": {
-    "Deep Learning": 49,
-    "VAE / GAN": 37,
+    "Deep Learning": 51,
+    "VAE / GAN": 40,
     "Molecular Dynamics": 35,
     "ANN / MLP": 28,
     "Transformer / LLM": 27,
-    "XGBoost": 22,
-    "Ensemble": 22,
-    "Gaussian Process": 19,
+    "Ensemble": 24,
+    "XGBoost": 23,
+    "Gaussian Process": 20,
     "Random Forest": 17,
-    "SVM": 14,
-    "Linear / PLS": 13,
+    "SVM": 15,
+    "Linear / PLS": 14,
     "GNN": 9,
     "CNN": 8,
     "Genetic Algorithm": 8,
@@ -62,15 +62,15 @@
     "AutoML": 2
   },
   "formulation_types": {
-    "Nanoparticle (generic)": 442,
-    "Lipid nanoparticle (LNP)": 207,
-    "mRNA / nucleic acid carrier": 162,
-    "Microsphere": 130,
-    "Liposome": 100,
-    "Hydrogel": 90,
-    "Nanosuspension": 69,
-    "PLGA nanoparticle": 66,
-    "Nanocrystal": 58,
+    "Nanoparticle (generic)": 458,
+    "Lipid nanoparticle (LNP)": 213,
+    "mRNA / nucleic acid carrier": 166,
+    "Microsphere": 131,
+    "Liposome": 101,
+    "Hydrogel": 92,
+    "Nanosuspension": 70,
+    "PLGA nanoparticle": 67,
+    "Nanocrystal": 59,
     "PLGA microsphere": 51,
     "Thermosensitive hydrogel": 48,
     "In situ gel": 38,
@@ -78,19 +78,19 @@
     "PLGA implant": 15
   },
   "input_features": {
-    "Concentration": 137,
-    "Particle size": 109,
+    "Concentration": 141,
+    "Particle size": 111,
     "Process parameters": 96,
-    "Drug loading": 85,
-    "Temperature": 83,
-    "Zeta potential": 61,
-    "pH": 44,
+    "Drug loading": 87,
+    "Temperature": 84,
+    "Zeta potential": 63,
+    "pH": 47,
     "Surfactant concentration": 36,
     "Viscosity": 35,
     "Polymer/lipid ratio": 28,
     "Polymer molecular weight": 15,
-    "Molecular descriptors": 13,
-    "temperature": 4,
+    "Molecular descriptors": 14,
+    "temperature": 5,
     "polymer concentration": 3,
     "zeta potential": 2,
     "particle size": 2,
@@ -210,7 +210,15 @@
     "motility": 1,
     "thermotaxis": 1,
     "chemotaxis": 1,
-    "rheotaxis": 1
+    "rheotaxis": 1,
+    "soy lecithin ratio": 1,
+    "reaction time": 1,
+    "lipid chemotype (ionizable vs permanently cationic)": 1,
+    "process method (microfluidic scale-out, impinging-jet scale-up)": 1,
+    "critical process parameters (CPPs)": 1,
+    "critical quality attributes (CQAs)": 1,
+    "lipid impurities": 1,
+    "mRNA-lipid adducts": 1
   },
   "year_trend": {
     "1995": 1,
@@ -243,7 +251,7 @@
     "2023": 50,
     "2024": 55,
     "2025": 106,
-    "2026": 833,
+    "2026": 878,
     "2027": 1
   },
   "domain_model_matrix": {
@@ -265,17 +273,17 @@
       "Gaussian Process": 1
     },
     "liposome": {
-      "Deep Learning": 32,
-      "VAE / GAN": 15,
+      "Deep Learning": 34,
+      "VAE / GAN": 16,
       "Molecular Dynamics": 12,
+      "XGBoost": 11,
       "Transformer / LLM": 10,
       "Random Forest": 10,
-      "XGBoost": 10,
+      "Ensemble": 10,
       "ANN / MLP": 8,
-      "Ensemble": 8,
       "SVM": 6,
-      "Linear / PLS": 5,
-      "Gaussian Process": 4,
+      "Linear / PLS": 6,
+      "Gaussian Process": 5,
       "GNN": 3,
       "CNN": 3,
       "k-NN": 3,
@@ -305,8 +313,8 @@
       "Gaussian Process": 6,
       "Deep Learning": 6,
       "Ensemble": 6,
-      "VAE / GAN": 4,
-      "SVM": 3,
+      "VAE / GAN": 6,
+      "SVM": 4,
       "Genetic Algorithm": 3,
       "GNN": 3,
       "Reinforcement Learning": 2,
