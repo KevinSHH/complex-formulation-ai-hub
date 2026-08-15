@@ -1,51 +1,51 @@
 {
   "meta": {
-    "total_papers": 1373,
-    "total_ml_papers": 471,
+    "total_papers": 1417,
+    "total_ml_papers": 480,
     "domains": {
       "in_situ_gel": {
         "label": "In Situ Gel",
         "label_cn": "原位凝胶",
         "icon": "💧",
-        "total": 136,
-        "ml": 32
+        "total": 139,
+        "ml": 33
       },
       "liposome": {
         "label": "Liposome",
         "label_cn": "脂质体",
         "icon": "🧫",
-        "total": 478,
-        "ml": 180
+        "total": 490,
+        "ml": 181
       },
       "microsphere": {
         "label": "Microsphere",
         "label_cn": "微球",
         "icon": "⚪",
-        "total": 250,
-        "ml": 80
+        "total": 260,
+        "ml": 85
       },
       "nanocrystal": {
         "label": "Nanocrystal",
         "label_cn": "纳米晶",
         "icon": "💎",
-        "total": 290,
-        "ml": 107
+        "total": 305,
+        "ml": 108
       },
       "plga_design": {
         "label": "PLGA Design",
         "label_cn": "PLGA 设计",
         "icon": "🧬",
-        "total": 219,
-        "ml": 72
+        "total": 223,
+        "ml": 73
       }
     }
   },
   "ai_models": {
-    "Deep Learning": 51,
-    "VAE / GAN": 40,
-    "Molecular Dynamics": 35,
+    "Deep Learning": 52,
+    "VAE / GAN": 42,
+    "Molecular Dynamics": 36,
     "ANN / MLP": 28,
-    "Transformer / LLM": 27,
+    "Transformer / LLM": 28,
     "Ensemble": 24,
     "XGBoost": 23,
     "Gaussian Process": 20,
@@ -62,33 +62,33 @@
     "AutoML": 2
   },
   "formulation_types": {
-    "Nanoparticle (generic)": 458,
-    "Lipid nanoparticle (LNP)": 213,
-    "mRNA / nucleic acid carrier": 166,
+    "Nanoparticle (generic)": 472,
+    "Lipid nanoparticle (LNP)": 216,
+    "mRNA / nucleic acid carrier": 170,
     "Microsphere": 131,
-    "Liposome": 101,
-    "Hydrogel": 92,
+    "Liposome": 107,
+    "Hydrogel": 97,
     "Nanosuspension": 70,
     "PLGA nanoparticle": 67,
     "Nanocrystal": 59,
     "PLGA microsphere": 51,
-    "Thermosensitive hydrogel": 48,
-    "In situ gel": 38,
-    "Block copolymer": 23,
+    "Thermosensitive hydrogel": 49,
+    "In situ gel": 39,
+    "Block copolymer": 24,
     "PLGA implant": 15
   },
   "input_features": {
-    "Concentration": 141,
-    "Particle size": 111,
-    "Process parameters": 96,
-    "Drug loading": 87,
-    "Temperature": 84,
-    "Zeta potential": 63,
-    "pH": 47,
-    "Surfactant concentration": 36,
-    "Viscosity": 35,
+    "Concentration": 145,
+    "Particle size": 113,
+    "Process parameters": 99,
+    "Drug loading": 89,
+    "Temperature": 87,
+    "Zeta potential": 65,
+    "pH": 48,
+    "Viscosity": 37,
+    "Surfactant concentration": 37,
     "Polymer/lipid ratio": 28,
-    "Polymer molecular weight": 15,
+    "Polymer molecular weight": 16,
     "Molecular descriptors": 14,
     "temperature": 5,
     "polymer concentration": 3,
@@ -251,7 +251,7 @@
     "2023": 50,
     "2024": 55,
     "2025": 106,
-    "2026": 878,
+    "2026": 922,
     "2027": 1
   },
   "domain_model_matrix": {
@@ -293,9 +293,9 @@
       "AutoML": 1
     },
     "microsphere": {
-      "Deep Learning": 5,
+      "Deep Learning": 6,
       "ANN / MLP": 5,
-      "VAE / GAN": 4,
+      "VAE / GAN": 5,
       "Gaussian Process": 3,
       "XGBoost": 3,
       "Ensemble": 2,
@@ -307,8 +307,8 @@
       "Molecular Dynamics": 1
     },
     "nanocrystal": {
-      "Molecular Dynamics": 11,
-      "Transformer / LLM": 9,
+      "Molecular Dynamics": 12,
+      "Transformer / LLM": 10,
       "ANN / MLP": 8,
       "Gaussian Process": 6,
       "Deep Learning": 6,
@@ -326,7 +326,7 @@
       "Random Forest": 1
     },
     "plga_design": {
-      "VAE / GAN": 10,
+      "VAE / GAN": 11,
       "Molecular Dynamics": 9,
       "XGBoost": 6,
       "Gaussian Process": 5,
