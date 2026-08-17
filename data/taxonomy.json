@@ -1,6 +1,6 @@
 {
   "meta": {
-    "total_papers": 1446,
+    "total_papers": 1467,
     "total_ml_papers": 488,
     "domains": {
       "in_situ_gel": {
@@ -14,28 +14,28 @@
         "label": "Liposome",
         "label_cn": "脂质体",
         "icon": "🧫",
-        "total": 498,
+        "total": 508,
         "ml": 183
       },
       "microsphere": {
         "label": "Microsphere",
         "label_cn": "微球",
         "icon": "⚪",
-        "total": 262,
+        "total": 263,
         "ml": 86
       },
       "nanocrystal": {
         "label": "Nanocrystal",
         "label_cn": "纳米晶",
         "icon": "💎",
-        "total": 316,
+        "total": 322,
         "ml": 111
       },
       "plga_design": {
         "label": "PLGA Design",
         "label_cn": "PLGA 设计",
         "icon": "🧬",
-        "total": 229,
+        "total": 233,
         "ml": 75
       }
     }
@@ -62,15 +62,15 @@
     "AutoML": 2
   },
   "formulation_types": {
-    "Nanoparticle (generic)": 480,
-    "Lipid nanoparticle (LNP)": 221,
-    "mRNA / nucleic acid carrier": 171,
-    "Microsphere": 131,
-    "Liposome": 107,
+    "Nanoparticle (generic)": 486,
+    "Lipid nanoparticle (LNP)": 225,
+    "mRNA / nucleic acid carrier": 172,
+    "Microsphere": 132,
+    "Liposome": 108,
     "Hydrogel": 100,
     "Nanosuspension": 70,
     "PLGA nanoparticle": 67,
-    "Nanocrystal": 59,
+    "Nanocrystal": 60,
     "PLGA microsphere": 51,
     "Thermosensitive hydrogel": 49,
     "In situ gel": 39,
@@ -78,15 +78,15 @@
     "PLGA implant": 15
   },
   "input_features": {
-    "Concentration": 149,
-    "Particle size": 115,
-    "Process parameters": 100,
-    "Drug loading": 91,
-    "Temperature": 87,
-    "Zeta potential": 66,
-    "pH": 49,
-    "Surfactant concentration": 38,
-    "Viscosity": 37,
+    "Concentration": 151,
+    "Particle size": 116,
+    "Process parameters": 103,
+    "Drug loading": 92,
+    "Temperature": 88,
+    "Zeta potential": 68,
+    "pH": 50,
+    "Surfactant concentration": 39,
+    "Viscosity": 38,
     "Polymer/lipid ratio": 28,
     "Polymer molecular weight": 16,
     "Molecular descriptors": 14,
@@ -218,7 +218,18 @@
     "critical process parameters (CPPs)": 1,
     "critical quality attributes (CQAs)": 1,
     "lipid impurities": 1,
-    "mRNA-lipid adducts": 1
+    "mRNA-lipid adducts": 1,
+    "uridine modification (N1-methylpseudouridine vs canonical uridine)": 1,
+    "antigen encoded (SARS-CoV-2 spike, ovalbumin)": 1,
+    "RNA type (messenger RNA)": 1,
+    "LNP formulation characteristics": 1,
+    "temperature (°C)": 1,
+    "axial strain (με)": 1,
+    "grating length (mm)": 1,
+    "Bragg wavelength (nm)": 1,
+    "total output power": 1,
+    "noise power": 1,
+    "signal-to-noise ratio (SNR)": 1
   },
   "year_trend": {
     "1995": 1,
@@ -251,7 +262,7 @@
     "2023": 50,
     "2024": 55,
     "2025": 106,
-    "2026": 951,
+    "2026": 972,
     "2027": 1
   },
   "domain_model_matrix": {
