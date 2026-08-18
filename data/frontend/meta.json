@@ -1,10 +1,10 @@
 {
   "platform_name": "ComplexForm-AI Hub",
   "description": "ML/AI for Complex Formulation R&D",
-  "total_papers": 1467,
+  "total_papers": 1472,
   "local_papers": 90,
-  "sniffed_papers": 1377,
-  "ml_papers": 488,
+  "sniffed_papers": 1382,
+  "ml_papers": 490,
   "domains": [
     "in_situ_gel",
     "liposome",
@@ -12,5 +12,5 @@
     "nanocrystal",
     "plga_design"
   ],
-  "last_updated": "2026-08-17T02:52:38Z"
+  "last_updated": "2026-08-18T02:45:53Z"
 }
