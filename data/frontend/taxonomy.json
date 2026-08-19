@@ -1,7 +1,7 @@
 {
   "meta": {
-    "total_papers": 1472,
-    "total_ml_papers": 490,
+    "total_papers": 1486,
+    "total_ml_papers": 492,
     "domains": {
       "in_situ_gel": {
         "label": "In Situ Gel",
@@ -14,15 +14,15 @@
         "label": "Liposome",
         "label_cn": "脂质体",
         "icon": "🧫",
-        "total": 511,
-        "ml": 184
+        "total": 514,
+        "ml": 185
       },
       "microsphere": {
         "label": "Microsphere",
         "label_cn": "微球",
         "icon": "⚪",
-        "total": 263,
-        "ml": 86
+        "total": 270,
+        "ml": 87
       },
       "nanocrystal": {
         "label": "Nanocrystal",
@@ -35,14 +35,14 @@
         "label": "PLGA Design",
         "label_cn": "PLGA 设计",
         "icon": "🧬",
-        "total": 235,
+        "total": 239,
         "ml": 76
       }
     }
   },
   "ai_models": {
     "Deep Learning": 54,
-    "VAE / GAN": 45,
+    "VAE / GAN": 46,
     "Molecular Dynamics": 36,
     "Transformer / LLM": 33,
     "ANN / MLP": 28,
@@ -62,9 +62,9 @@
     "AutoML": 2
   },
   "formulation_types": {
-    "Nanoparticle (generic)": 488,
-    "Lipid nanoparticle (LNP)": 226,
-    "mRNA / nucleic acid carrier": 173,
+    "Nanoparticle (generic)": 491,
+    "Lipid nanoparticle (LNP)": 227,
+    "mRNA / nucleic acid carrier": 175,
     "Microsphere": 133,
     "Liposome": 108,
     "Hydrogel": 100,
@@ -79,18 +79,18 @@
   },
   "input_features": {
     "Concentration": 152,
-    "Particle size": 117,
-    "Process parameters": 104,
+    "Particle size": 118,
+    "Process parameters": 105,
     "Drug loading": 93,
     "Temperature": 89,
     "Zeta potential": 69,
-    "pH": 50,
+    "pH": 52,
     "Surfactant concentration": 39,
     "Viscosity": 38,
     "Polymer/lipid ratio": 28,
     "Polymer molecular weight": 16,
     "Molecular descriptors": 14,
-    "temperature": 5,
+    "temperature": 6,
     "polymer concentration": 3,
     "zeta potential": 2,
     "particle size": 2,
@@ -229,7 +229,9 @@
     "Bragg wavelength (nm)": 1,
     "total output power": 1,
     "noise power": 1,
-    "signal-to-noise ratio (SNR)": 1
+    "signal-to-noise ratio (SNR)": 1,
+    "calcination_temperature": 1,
+    "contact_time": 1
   },
   "year_trend": {
     "1995": 1,
@@ -262,7 +264,7 @@
     "2023": 50,
     "2024": 55,
     "2025": 106,
-    "2026": 977,
+    "2026": 991,
     "2027": 1
   },
   "domain_model_matrix": {
@@ -305,8 +307,8 @@
     },
     "microsphere": {
       "Deep Learning": 6,
+      "VAE / GAN": 6,
       "ANN / MLP": 5,
-      "VAE / GAN": 5,
       "XGBoost": 4,
       "Ensemble": 3,
       "Gaussian Process": 3,
