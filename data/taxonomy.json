@@ -1,50 +1,50 @@
 {
   "meta": {
-    "total_papers": 1486,
-    "total_ml_papers": 492,
+    "total_papers": 1530,
+    "total_ml_papers": 501,
     "domains": {
       "in_situ_gel": {
         "label": "In Situ Gel",
         "label_cn": "原位凝胶",
         "icon": "💧",
-        "total": 141,
+        "total": 143,
         "ml": 33
       },
       "liposome": {
         "label": "Liposome",
         "label_cn": "脂质体",
         "icon": "🧫",
-        "total": 514,
-        "ml": 185
+        "total": 534,
+        "ml": 189
       },
       "microsphere": {
         "label": "Microsphere",
         "label_cn": "微球",
         "icon": "⚪",
-        "total": 270,
+        "total": 271,
         "ml": 87
       },
       "nanocrystal": {
         "label": "Nanocrystal",
         "label_cn": "纳米晶",
         "icon": "💎",
-        "total": 322,
-        "ml": 111
+        "total": 338,
+        "ml": 115
       },
       "plga_design": {
         "label": "PLGA Design",
         "label_cn": "PLGA 设计",
         "icon": "🧬",
-        "total": 239,
-        "ml": 76
+        "total": 244,
+        "ml": 77
       }
     }
   },
   "ai_models": {
-    "Deep Learning": 54,
+    "Deep Learning": 55,
     "VAE / GAN": 46,
     "Molecular Dynamics": 36,
-    "Transformer / LLM": 33,
+    "Transformer / LLM": 34,
     "ANN / MLP": 28,
     "Ensemble": 27,
     "XGBoost": 24,
@@ -53,8 +53,8 @@
     "SVM": 15,
     "Linear / PLS": 14,
     "GNN": 12,
+    "Genetic Algorithm": 9,
     "CNN": 8,
-    "Genetic Algorithm": 8,
     "RNN / LSTM": 5,
     "k-NN": 4,
     "Decision Tree": 4,
@@ -62,15 +62,15 @@
     "AutoML": 2
   },
   "formulation_types": {
-    "Nanoparticle (generic)": 491,
-    "Lipid nanoparticle (LNP)": 227,
-    "mRNA / nucleic acid carrier": 175,
-    "Microsphere": 133,
-    "Liposome": 108,
-    "Hydrogel": 100,
+    "Nanoparticle (generic)": 504,
+    "Lipid nanoparticle (LNP)": 236,
+    "mRNA / nucleic acid carrier": 176,
+    "Microsphere": 135,
+    "Liposome": 111,
+    "Hydrogel": 104,
     "Nanosuspension": 70,
-    "PLGA nanoparticle": 67,
-    "Nanocrystal": 60,
+    "PLGA nanoparticle": 68,
+    "Nanocrystal": 61,
     "PLGA microsphere": 52,
     "Thermosensitive hydrogel": 50,
     "In situ gel": 39,
@@ -78,19 +78,19 @@
     "PLGA implant": 15
   },
   "input_features": {
-    "Concentration": 152,
-    "Particle size": 118,
-    "Process parameters": 105,
-    "Drug loading": 93,
-    "Temperature": 89,
-    "Zeta potential": 69,
-    "pH": 52,
-    "Surfactant concentration": 39,
-    "Viscosity": 38,
-    "Polymer/lipid ratio": 28,
-    "Polymer molecular weight": 16,
-    "Molecular descriptors": 14,
-    "temperature": 6,
+    "Concentration": 157,
+    "Particle size": 121,
+    "Process parameters": 107,
+    "Temperature": 96,
+    "Drug loading": 94,
+    "Zeta potential": 72,
+    "pH": 53,
+    "Surfactant concentration": 40,
+    "Viscosity": 39,
+    "Polymer/lipid ratio": 29,
+    "Polymer molecular weight": 17,
+    "Molecular descriptors": 16,
+    "temperature": 7,
     "polymer concentration": 3,
     "zeta potential": 2,
     "particle size": 2,
@@ -231,7 +231,10 @@
     "noise power": 1,
     "signal-to-noise ratio (SNR)": 1,
     "calcination_temperature": 1,
-    "contact_time": 1
+    "contact_time": 1,
+    "piezoelectric strain": 1,
+    "electrical gate voltage": 1,
+    "all-optical pump intensity": 1
   },
   "year_trend": {
     "1995": 1,
@@ -264,7 +267,7 @@
     "2023": 50,
     "2024": 55,
     "2025": 106,
-    "2026": 991,
+    "2026": 1035,
     "2027": 1
   },
   "domain_model_matrix": {
@@ -288,7 +291,7 @@
     "liposome": {
       "Deep Learning": 36,
       "VAE / GAN": 18,
-      "Transformer / LLM": 12,
+      "Transformer / LLM": 13,
       "Molecular Dynamics": 12,
       "XGBoost": 11,
       "Random Forest": 10,
@@ -324,11 +327,11 @@
       "Transformer / LLM": 11,
       "Ensemble": 8,
       "ANN / MLP": 8,
+      "Deep Learning": 7,
       "Gaussian Process": 6,
-      "Deep Learning": 6,
       "VAE / GAN": 6,
       "SVM": 4,
-      "Genetic Algorithm": 3,
+      "Genetic Algorithm": 4,
       "GNN": 3,
       "Reinforcement Learning": 2,
       "XGBoost": 2,
