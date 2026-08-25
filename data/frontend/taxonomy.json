@@ -1,7 +1,7 @@
 {
   "meta": {
-    "total_papers": 1659,
-    "total_ml_papers": 532,
+    "total_papers": 1673,
+    "total_ml_papers": 537,
     "domains": {
       "in_situ_gel": {
         "label": "In Situ Gel",
@@ -14,62 +14,62 @@
         "label": "Liposome",
         "label_cn": "脂质体",
         "icon": "🧫",
-        "total": 593,
-        "ml": 206
+        "total": 599,
+        "ml": 209
       },
       "microsphere": {
         "label": "Microsphere",
         "label_cn": "微球",
         "icon": "⚪",
-        "total": 293,
+        "total": 294,
         "ml": 92
       },
       "nanocrystal": {
         "label": "Nanocrystal",
         "label_cn": "纳米晶",
         "icon": "💎",
-        "total": 366,
-        "ml": 123
+        "total": 370,
+        "ml": 125
       },
       "plga_design": {
         "label": "PLGA Design",
         "label_cn": "PLGA 设计",
         "icon": "🧬",
-        "total": 259,
+        "total": 262,
         "ml": 78
       }
     }
   },
   "ai_models": {
-    "Deep Learning": 59,
+    "Deep Learning": 60,
     "VAE / GAN": 52,
+    "Transformer / LLM": 37,
     "Molecular Dynamics": 36,
-    "Transformer / LLM": 35,
     "ANN / MLP": 34,
     "Ensemble": 30,
     "XGBoost": 26,
     "Gaussian Process": 21,
     "Random Forest": 19,
     "SVM": 16,
-    "Linear / PLS": 14,
+    "Linear / PLS": 15,
     "GNN": 13,
+    "CNN": 9,
     "Genetic Algorithm": 9,
-    "CNN": 8,
     "RNN / LSTM": 6,
+    "k-NN": 5,
     "Reinforcement Learning": 4,
-    "k-NN": 4,
     "Decision Tree": 4,
     "AutoML": 2
   },
   "formulation_types": {
-    "Nanoparticle (generic)": 542,
-    "Lipid nanoparticle (LNP)": 251,
-    "mRNA / nucleic acid carrier": 188,
+    "Nanoparticle (generic)": 546,
+    "Lipid nanoparticle (LNP)": 252,
+    "mRNA / nucleic acid carrier": 189,
     "Microsphere": 140,
-    "Liposome": 115,
-    "Hydrogel": 112,
+    "Liposome": 117,
+    "Hydrogel": 113,
     "Nanosuspension": 72,
-    "PLGA nanoparticle": 69,
+    "PLGA nanoparticle": 70,
     "Nanocrystal": 64,
     "PLGA microsphere": 52,
     "Thermosensitive hydrogel": 52,
@@ -78,15 +78,15 @@
     "PLGA implant": 15
   },
   "input_features": {
-    "Concentration": 171,
+    "Concentration": 173,
     "Particle size": 125,
     "Process parameters": 112,
-    "Temperature": 103,
-    "Drug loading": 99,
+    "Temperature": 104,
+    "Drug loading": 100,
     "Zeta potential": 81,
     "pH": 58,
     "Viscosity": 41,
-    "Surfactant concentration": 40,
+    "Surfactant concentration": 41,
     "Polymer/lipid ratio": 30,
     "Polymer molecular weight": 19,
     "Molecular descriptors": 17,
@@ -238,7 +238,15 @@
     "opto-electric stimulation": 1,
     "gate voltage": 1,
     "light wavelength/intensity": 1,
-    "ferroelectric layer thickness": 1
+    "ferroelectric layer thickness": 1,
+    "somatic single nucleotide variants (SNVs)": 1,
+    "insertions/deletions (INDELs)": 1,
+    "structural variants (SVs)": 1,
+    "alternative splicing events": 1,
+    "post-translational modifications": 1,
+    "viral oncoprotein sequences": 1,
+    "HLA allele binding affinity": 1,
+    "gene expression levels": 1
   },
   "year_trend": {
     "1995": 1,
@@ -271,7 +279,7 @@
     "2023": 50,
     "2024": 55,
     "2025": 106,
-    "2026": 1164,
+    "2026": 1178,
     "2027": 1
   },
   "domain_model_matrix": {
@@ -293,20 +301,20 @@
       "Gaussian Process": 1
     },
     "liposome": {
-      "Deep Learning": 38,
+      "Deep Learning": 39,
       "VAE / GAN": 23,
-      "Transformer / LLM": 14,
+      "Transformer / LLM": 15,
       "Molecular Dynamics": 12,
       "XGBoost": 12,
       "Random Forest": 11,
       "Ensemble": 10,
       "ANN / MLP": 9,
       "SVM": 7,
+      "Linear / PLS": 7,
       "GNN": 6,
-      "Linear / PLS": 6,
       "Gaussian Process": 6,
+      "k-NN": 4,
       "CNN": 3,
-      "k-NN": 3,
       "RNN / LSTM": 3,
       "Genetic Algorithm": 2,
       "Decision Tree": 1,
@@ -328,8 +336,8 @@
       "Molecular Dynamics": 1
     },
     "nanocrystal": {
+      "Transformer / LLM": 12,
       "Molecular Dynamics": 12,
-      "Transformer / LLM": 11,
       "ANN / MLP": 10,
       "Deep Learning": 8,
       "Ensemble": 8,
@@ -339,8 +347,8 @@
       "Genetic Algorithm": 4,
       "XGBoost": 3,
       "GNN": 3,
+      "CNN": 3,
       "Reinforcement Learning": 2,
-      "CNN": 2,
       "Random Forest": 2,
       "Linear / PLS": 1,
       "Decision Tree": 1,
