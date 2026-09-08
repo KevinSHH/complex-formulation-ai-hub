@@ -1,7 +1,7 @@
 {
   "meta": {
-    "total_papers": 2141,
-    "total_ml_papers": 649,
+    "total_papers": 2163,
+    "total_ml_papers": 655,
     "domains": {
       "in_situ_gel": {
         "label": "In Situ Gel",
@@ -14,37 +14,37 @@
         "label": "Liposome",
         "label_cn": "脂质体",
         "icon": "🧫",
-        "total": 786,
-        "ml": 252
+        "total": 798,
+        "ml": 256
       },
       "microsphere": {
         "label": "Microsphere",
         "label_cn": "微球",
         "icon": "⚪",
-        "total": 381,
-        "ml": 118
+        "total": 386,
+        "ml": 119
       },
       "nanocrystal": {
         "label": "Nanocrystal",
         "label_cn": "纳米晶",
         "icon": "💎",
-        "total": 473,
-        "ml": 156
+        "total": 477,
+        "ml": 157
       },
       "plga_design": {
         "label": "PLGA Design",
         "label_cn": "PLGA 设计",
         "icon": "🧬",
-        "total": 335,
+        "total": 336,
         "ml": 88
       }
     }
   },
   "ai_models": {
-    "VAE / GAN": 69,
-    "Deep Learning": 69,
+    "VAE / GAN": 70,
+    "Deep Learning": 70,
     "Molecular Dynamics": 47,
-    "Transformer / LLM": 46,
+    "Transformer / LLM": 47,
     "ANN / MLP": 40,
     "Ensemble": 35,
     "XGBoost": 31,
@@ -52,25 +52,25 @@
     "Random Forest": 21,
     "SVM": 17,
     "Linear / PLS": 16,
+    "CNN": 15,
     "GNN": 14,
-    "CNN": 14,
     "Genetic Algorithm": 10,
-    "k-NN": 6,
+    "k-NN": 7,
     "RNN / LSTM": 6,
     "Reinforcement Learning": 5,
     "Decision Tree": 5,
     "AutoML": 3
   },
   "formulation_types": {
-    "Nanoparticle (generic)": 691,
-    "Lipid nanoparticle (LNP)": 317,
+    "Nanoparticle (generic)": 697,
+    "Lipid nanoparticle (LNP)": 320,
     "mRNA / nucleic acid carrier": 239,
-    "Microsphere": 155,
-    "Hydrogel": 146,
-    "Liposome": 142,
+    "Microsphere": 157,
+    "Hydrogel": 147,
+    "Liposome": 145,
     "Nanosuspension": 79,
     "PLGA nanoparticle": 79,
-    "Nanocrystal": 75,
+    "Nanocrystal": 77,
     "Thermosensitive hydrogel": 56,
     "PLGA microsphere": 52,
     "In situ gel": 45,
@@ -78,14 +78,14 @@
     "PLGA implant": 15
   },
   "input_features": {
-    "Concentration": 198,
-    "Particle size": 149,
+    "Concentration": 199,
+    "Particle size": 150,
     "Process parameters": 131,
     "Temperature": 123,
     "Drug loading": 121,
-    "Zeta potential": 100,
+    "Zeta potential": 101,
     "pH": 79,
-    "Surfactant concentration": 50,
+    "Surfactant concentration": 51,
     "Viscosity": 48,
     "Polymer/lipid ratio": 32,
     "Polymer molecular weight": 24,
@@ -285,7 +285,12 @@
     "solubility product (Ksp)": 1,
     "trigger type (endogenous: pH, enzymatic, redox; exogenous: light, magnetic field, ultrasound, thermal)": 1,
     "drug loading amount": 1,
-    "particle size/surface area": 1
+    "particle size/surface area": 1,
+    "EV-miRNA expression levels": 1,
+    "B4galt1 editing efficiency (% edited mRNA)": 1,
+    "mouse genotype (wild-type or APOE*3-Leiden.CETP)": 1,
+    "treatment with editing oligonucleotides": 1,
+    "time point": 1
   },
   "year_trend": {
     "1995": 1,
@@ -318,7 +323,7 @@
     "2023": 50,
     "2024": 55,
     "2025": 106,
-    "2026": 1646,
+    "2026": 1668,
     "2027": 1
   },
   "domain_model_matrix": {
@@ -352,7 +357,7 @@
       "GNN": 7,
       "SVM": 7,
       "Linear / PLS": 7,
-      "k-NN": 4,
+      "k-NN": 5,
       "CNN": 3,
       "RNN / LSTM": 3,
       "Decision Tree": 2,
@@ -361,12 +366,12 @@
       "AutoML": 1
     },
     "microsphere": {
-      "Deep Learning": 8,
+      "Deep Learning": 9,
       "ANN / MLP": 8,
       "VAE / GAN": 8,
       "Ensemble": 7,
+      "CNN": 5,
       "Transformer / LLM": 4,
-      "CNN": 4,
       "XGBoost": 4,
       "Gaussian Process": 3,
       "Random Forest": 3,
@@ -378,12 +383,12 @@
     },
     "nanocrystal": {
       "Molecular Dynamics": 18,
-      "Transformer / LLM": 14,
+      "Transformer / LLM": 15,
       "ANN / MLP": 13,
       "Ensemble": 12,
       "Deep Learning": 9,
+      "VAE / GAN": 7,
       "Gaussian Process": 6,
-      "VAE / GAN": 6,
       "CNN": 6,
       "XGBoost": 5,
       "Genetic Algorithm": 5,
