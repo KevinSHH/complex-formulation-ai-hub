@@ -1,50 +1,50 @@
 {
   "meta": {
-    "total_papers": 2163,
-    "total_ml_papers": 655,
+    "total_papers": 2201,
+    "total_ml_papers": 659,
     "domains": {
       "in_situ_gel": {
         "label": "In Situ Gel",
         "label_cn": "原位凝胶",
         "icon": "💧",
-        "total": 166,
+        "total": 168,
         "ml": 35
       },
       "liposome": {
         "label": "Liposome",
         "label_cn": "脂质体",
         "icon": "🧫",
-        "total": 798,
-        "ml": 256
+        "total": 816,
+        "ml": 258
       },
       "microsphere": {
         "label": "Microsphere",
         "label_cn": "微球",
         "icon": "⚪",
-        "total": 386,
-        "ml": 119
+        "total": 391,
+        "ml": 120
       },
       "nanocrystal": {
         "label": "Nanocrystal",
         "label_cn": "纳米晶",
         "icon": "💎",
-        "total": 477,
+        "total": 483,
         "ml": 157
       },
       "plga_design": {
         "label": "PLGA Design",
         "label_cn": "PLGA 设计",
         "icon": "🧬",
-        "total": 336,
-        "ml": 88
+        "total": 343,
+        "ml": 89
       }
     }
   },
   "ai_models": {
+    "Deep Learning": 71,
     "VAE / GAN": 70,
-    "Deep Learning": 70,
+    "Transformer / LLM": 48,
     "Molecular Dynamics": 47,
-    "Transformer / LLM": 47,
     "ANN / MLP": 40,
     "Ensemble": 35,
     "XGBoost": 31,
@@ -62,15 +62,15 @@
     "AutoML": 3
   },
   "formulation_types": {
-    "Nanoparticle (generic)": 697,
-    "Lipid nanoparticle (LNP)": 320,
-    "mRNA / nucleic acid carrier": 239,
-    "Microsphere": 157,
-    "Hydrogel": 147,
-    "Liposome": 145,
+    "Nanoparticle (generic)": 709,
+    "Lipid nanoparticle (LNP)": 324,
+    "mRNA / nucleic acid carrier": 242,
+    "Microsphere": 158,
+    "Hydrogel": 151,
+    "Liposome": 147,
     "Nanosuspension": 79,
     "PLGA nanoparticle": 79,
-    "Nanocrystal": 77,
+    "Nanocrystal": 78,
     "Thermosensitive hydrogel": 56,
     "PLGA microsphere": 52,
     "In situ gel": 45,
@@ -78,23 +78,24 @@
     "PLGA implant": 15
   },
   "input_features": {
-    "Concentration": 199,
-    "Particle size": 150,
-    "Process parameters": 131,
-    "Temperature": 123,
-    "Drug loading": 121,
-    "Zeta potential": 101,
-    "pH": 79,
-    "Surfactant concentration": 51,
-    "Viscosity": 48,
+    "Concentration": 200,
+    "Particle size": 151,
+    "Process parameters": 134,
+    "Temperature": 125,
+    "Drug loading": 122,
+    "Zeta potential": 102,
+    "pH": 80,
+    "Surfactant concentration": 52,
+    "Viscosity": 49,
     "Polymer/lipid ratio": 32,
     "Polymer molecular weight": 24,
     "Molecular descriptors": 23,
-    "temperature": 9,
+    "temperature": 10,
     "polymer concentration": 3,
     "zeta potential": 3,
     "particle size": 3,
     "flow rate": 2,
+    "lipid composition": 2,
     "drug concentration": 2,
     "polydispersity index": 2,
     "encapsulation efficiency": 2,
@@ -169,7 +170,6 @@
     "presence of MSC secretome": 1,
     "release medium composition (pH, ionic strength)": 1,
     "sampling time": 1,
-    "lipid composition": 1,
     "lipid stoichiometry": 1,
     "morphology": 1,
     "phase behavior": 1,
@@ -290,7 +290,22 @@
     "B4galt1 editing efficiency (% edited mRNA)": 1,
     "mouse genotype (wild-type or APOE*3-Leiden.CETP)": 1,
     "treatment with editing oligonucleotides": 1,
-    "time point": 1
+    "time point": 1,
+    "polymer origin": 1,
+    "crosslinking strategy": 1,
+    "swelling behavior": 1,
+    "degradation rate": 1,
+    "three-dimensional network architecture": 1,
+    "drug loading capacity": 1,
+    "drug protection": 1,
+    "release kinetics": 1,
+    "therapeutic performance": 1,
+    "stimuli-responsive triggers (pH, temperature, enzymes, inflammatory microenvironment)": 1,
+    "vesicle size": 1,
+    "surface functionalization": 1,
+    "release characteristics": 1,
+    "precursor concentration": 1,
+    "extract composition": 1
   },
   "year_trend": {
     "1995": 1,
@@ -323,7 +338,7 @@
     "2023": 50,
     "2024": 55,
     "2025": 106,
-    "2026": 1668,
+    "2026": 1706,
     "2027": 1
   },
   "domain_model_matrix": {
@@ -366,7 +381,7 @@
       "AutoML": 1
     },
     "microsphere": {
-      "Deep Learning": 9,
+      "Deep Learning": 10,
       "ANN / MLP": 8,
       "VAE / GAN": 8,
       "Ensemble": 7,
@@ -403,7 +418,7 @@
     "plga_design": {
       "VAE / GAN": 18,
       "Molecular Dynamics": 9,
-      "Transformer / LLM": 8,
+      "Transformer / LLM": 9,
       "XGBoost": 7,
       "Gaussian Process": 5,
       "Ensemble": 4,
