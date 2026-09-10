@@ -1,7 +1,7 @@
 {
   "meta": {
-    "total_papers": 2201,
-    "total_ml_papers": 659,
+    "total_papers": 2228,
+    "total_ml_papers": 670,
     "domains": {
       "in_situ_gel": {
         "label": "In Situ Gel",
@@ -14,44 +14,44 @@
         "label": "Liposome",
         "label_cn": "脂质体",
         "icon": "🧫",
-        "total": 816,
-        "ml": 258
+        "total": 829,
+        "ml": 264
       },
       "microsphere": {
         "label": "Microsphere",
         "label_cn": "微球",
         "icon": "⚪",
-        "total": 391,
-        "ml": 120
+        "total": 395,
+        "ml": 121
       },
       "nanocrystal": {
         "label": "Nanocrystal",
         "label_cn": "纳米晶",
         "icon": "💎",
-        "total": 483,
-        "ml": 157
+        "total": 490,
+        "ml": 161
       },
       "plga_design": {
         "label": "PLGA Design",
         "label_cn": "PLGA 设计",
         "icon": "🧬",
-        "total": 343,
+        "total": 346,
         "ml": 89
       }
     }
   },
   "ai_models": {
-    "Deep Learning": 71,
+    "Deep Learning": 72,
     "VAE / GAN": 70,
+    "Molecular Dynamics": 50,
     "Transformer / LLM": 48,
-    "Molecular Dynamics": 47,
-    "ANN / MLP": 40,
+    "ANN / MLP": 42,
     "Ensemble": 35,
-    "XGBoost": 31,
+    "XGBoost": 32,
     "Gaussian Process": 23,
-    "Random Forest": 21,
-    "SVM": 17,
-    "Linear / PLS": 16,
+    "Random Forest": 22,
+    "SVM": 18,
+    "Linear / PLS": 17,
     "CNN": 15,
     "GNN": 14,
     "Genetic Algorithm": 10,
@@ -62,12 +62,12 @@
     "AutoML": 3
   },
   "formulation_types": {
-    "Nanoparticle (generic)": 709,
-    "Lipid nanoparticle (LNP)": 324,
-    "mRNA / nucleic acid carrier": 242,
+    "Nanoparticle (generic)": 723,
+    "Lipid nanoparticle (LNP)": 330,
+    "mRNA / nucleic acid carrier": 248,
     "Microsphere": 158,
-    "Hydrogel": 151,
-    "Liposome": 147,
+    "Hydrogel": 152,
+    "Liposome": 149,
     "Nanosuspension": 79,
     "PLGA nanoparticle": 79,
     "Nanocrystal": 78,
@@ -78,19 +78,19 @@
     "PLGA implant": 15
   },
   "input_features": {
-    "Concentration": 200,
-    "Particle size": 151,
+    "Concentration": 202,
+    "Particle size": 153,
     "Process parameters": 134,
-    "Temperature": 125,
-    "Drug loading": 122,
-    "Zeta potential": 102,
-    "pH": 80,
+    "Temperature": 128,
+    "Drug loading": 124,
+    "Zeta potential": 103,
+    "pH": 82,
     "Surfactant concentration": 52,
-    "Viscosity": 49,
+    "Viscosity": 50,
     "Polymer/lipid ratio": 32,
     "Polymer molecular weight": 24,
     "Molecular descriptors": 23,
-    "temperature": 10,
+    "temperature": 11,
     "polymer concentration": 3,
     "zeta potential": 3,
     "particle size": 3,
@@ -305,7 +305,11 @@
     "surface functionalization": 1,
     "release characteristics": 1,
     "precursor concentration": 1,
-    "extract composition": 1
+    "extract composition": 1,
+    "pathogen concentration (CFU)": 1,
+    "chemical contaminant levels (ppb)": 1,
+    "food matrix type (milk, meat, seafood, cereals, edible oils)": 1,
+    "signal readout (electrocurrent, absorbance, frequency shift)": 1
   },
   "year_trend": {
     "1995": 1,
@@ -338,7 +342,7 @@
     "2023": 50,
     "2024": 55,
     "2025": 106,
-    "2026": 1706,
+    "2026": 1733,
     "2027": 1
   },
   "domain_model_matrix": {
@@ -360,10 +364,10 @@
       "Gaussian Process": 1
     },
     "liposome": {
-      "Deep Learning": 46,
+      "Deep Learning": 47,
       "VAE / GAN": 32,
       "Transformer / LLM": 19,
-      "Molecular Dynamics": 16,
+      "Molecular Dynamics": 18,
       "XGBoost": 14,
       "Random Forest": 12,
       "ANN / MLP": 11,
@@ -397,22 +401,22 @@
       "k-NN": 1
     },
     "nanocrystal": {
-      "Molecular Dynamics": 18,
+      "Molecular Dynamics": 19,
       "Transformer / LLM": 15,
-      "ANN / MLP": 13,
+      "ANN / MLP": 15,
       "Ensemble": 12,
       "Deep Learning": 9,
       "VAE / GAN": 7,
       "Gaussian Process": 6,
+      "XGBoost": 6,
       "CNN": 6,
-      "XGBoost": 5,
+      "SVM": 5,
       "Genetic Algorithm": 5,
-      "SVM": 4,
+      "Linear / PLS": 3,
       "GNN": 3,
+      "Random Forest": 3,
       "Reinforcement Learning": 2,
-      "Linear / PLS": 2,
       "AutoML": 2,
-      "Random Forest": 2,
       "Decision Tree": 1
     },
     "plga_design": {
