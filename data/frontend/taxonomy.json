@@ -1,7 +1,7 @@
 {
   "meta": {
-    "total_papers": 2316,
-    "total_ml_papers": 695,
+    "total_papers": 2319,
+    "total_ml_papers": 696,
     "domains": {
       "in_situ_gel": {
         "label": "In Situ Gel",
@@ -14,8 +14,8 @@
         "label": "Liposome",
         "label_cn": "脂质体",
         "icon": "🧫",
-        "total": 864,
-        "ml": 277
+        "total": 867,
+        "ml": 278
       },
       "microsphere": {
         "label": "Microsphere",
@@ -62,9 +62,9 @@
     "AutoML": 3
   },
   "formulation_types": {
-    "Nanoparticle (generic)": 751,
-    "Lipid nanoparticle (LNP)": 342,
-    "mRNA / nucleic acid carrier": 255,
+    "Nanoparticle (generic)": 753,
+    "Lipid nanoparticle (LNP)": 343,
+    "mRNA / nucleic acid carrier": 256,
     "Microsphere": 161,
     "Hydrogel": 159,
     "Liposome": 159,
@@ -78,12 +78,12 @@
     "PLGA implant": 15
   },
   "input_features": {
-    "Concentration": 207,
-    "Particle size": 161,
+    "Concentration": 208,
+    "Particle size": 162,
     "Temperature": 138,
     "Process parameters": 137,
     "Drug loading": 129,
-    "Zeta potential": 110,
+    "Zeta potential": 111,
     "pH": 83,
     "Surfactant concentration": 52,
     "Viscosity": 50,
@@ -351,7 +351,7 @@
     "2023": 50,
     "2024": 55,
     "2025": 106,
-    "2026": 1821,
+    "2026": 1824,
     "2027": 1
   },
   "domain_model_matrix": {
