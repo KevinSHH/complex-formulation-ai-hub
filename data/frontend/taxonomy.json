@@ -1,7 +1,7 @@
 {
   "meta": {
-    "total_papers": 2319,
-    "total_ml_papers": 696,
+    "total_papers": 2332,
+    "total_ml_papers": 701,
     "domains": {
       "in_situ_gel": {
         "label": "In Situ Gel",
@@ -14,8 +14,8 @@
         "label": "Liposome",
         "label_cn": "脂质体",
         "icon": "🧫",
-        "total": 867,
-        "ml": 278
+        "total": 875,
+        "ml": 280
       },
       "microsphere": {
         "label": "Microsphere",
@@ -28,8 +28,8 @@
         "label": "Nanocrystal",
         "label_cn": "纳米晶",
         "icon": "💎",
-        "total": 506,
-        "ml": 166
+        "total": 511,
+        "ml": 169
       },
       "plga_design": {
         "label": "PLGA Design",
@@ -47,9 +47,9 @@
     "Transformer / LLM": 48,
     "ANN / MLP": 43,
     "Ensemble": 37,
-    "XGBoost": 34,
-    "Random Forest": 24,
-    "Gaussian Process": 24,
+    "XGBoost": 35,
+    "Random Forest": 25,
+    "Gaussian Process": 25,
     "SVM": 19,
     "Linear / PLS": 17,
     "CNN": 16,
@@ -62,15 +62,15 @@
     "AutoML": 3
   },
   "formulation_types": {
-    "Nanoparticle (generic)": 753,
+    "Nanoparticle (generic)": 755,
     "Lipid nanoparticle (LNP)": 343,
-    "mRNA / nucleic acid carrier": 256,
+    "mRNA / nucleic acid carrier": 258,
     "Microsphere": 161,
     "Hydrogel": 159,
     "Liposome": 159,
+    "Nanocrystal": 81,
     "Nanosuspension": 80,
     "PLGA nanoparticle": 80,
-    "Nanocrystal": 79,
     "Thermosensitive hydrogel": 56,
     "PLGA microsphere": 54,
     "In situ gel": 45,
@@ -82,7 +82,7 @@
     "Particle size": 162,
     "Temperature": 138,
     "Process parameters": 137,
-    "Drug loading": 129,
+    "Drug loading": 130,
     "Zeta potential": 111,
     "pH": 83,
     "Surfactant concentration": 52,
@@ -318,7 +318,10 @@
     "jute fiber content (wt%)": 1,
     "injection molding parameters": 1,
     "mucin binding affinity": 1,
-    "tear film break-up time": 1
+    "tear film break-up time": 1,
+    "steric stabilizer type (Factor-A)": 1,
+    "total stabilizer concentration (Factor-B)": 1,
+    "dispersing stabilizer contribution (Factor-C)": 1
   },
   "year_trend": {
     "1995": 1,
@@ -351,7 +354,7 @@
     "2023": 50,
     "2024": 55,
     "2025": 106,
-    "2026": 1824,
+    "2026": 1837,
     "2027": 1
   },
   "domain_model_matrix": {
@@ -378,12 +381,12 @@
       "Molecular Dynamics": 21,
       "Transformer / LLM": 19,
       "XGBoost": 16,
-      "Random Forest": 13,
+      "Random Forest": 14,
       "ANN / MLP": 12,
       "Ensemble": 11,
+      "Gaussian Process": 9,
       "GNN": 8,
       "SVM": 8,
-      "Gaussian Process": 8,
       "Linear / PLS": 7,
       "k-NN": 5,
       "CNN": 4,
@@ -416,8 +419,8 @@
       "Ensemble": 13,
       "Deep Learning": 9,
       "Gaussian Process": 7,
+      "XGBoost": 7,
       "VAE / GAN": 7,
-      "XGBoost": 6,
       "CNN": 6,
       "SVM": 5,
       "Genetic Algorithm": 5,
