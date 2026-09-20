@@ -1,34 +1,34 @@
 {
   "meta": {
-    "total_papers": 2534,
-    "total_ml_papers": 762,
+    "total_papers": 2546,
+    "total_ml_papers": 765,
     "domains": {
       "in_situ_gel": {
         "label": "In Situ Gel",
         "label_cn": "原位凝胶",
         "icon": "💧",
-        "total": 180,
+        "total": 181,
         "ml": 38
       },
       "liposome": {
         "label": "Liposome",
         "label_cn": "脂质体",
         "icon": "🧫",
-        "total": 953,
-        "ml": 308
+        "total": 962,
+        "ml": 311
       },
       "microsphere": {
         "label": "Microsphere",
         "label_cn": "微球",
         "icon": "⚪",
-        "total": 452,
+        "total": 453,
         "ml": 135
       },
       "nanocrystal": {
         "label": "Nanocrystal",
         "label_cn": "纳米晶",
         "icon": "💎",
-        "total": 561,
+        "total": 562,
         "ml": 185
       },
       "plga_design": {
@@ -41,7 +41,7 @@
     }
   },
   "ai_models": {
-    "VAE / GAN": 83,
+    "VAE / GAN": 84,
     "Deep Learning": 81,
     "Molecular Dynamics": 60,
     "Transformer / LLM": 56,
@@ -62,29 +62,29 @@
     "AutoML": 3
   },
   "formulation_types": {
-    "Nanoparticle (generic)": 817,
-    "Lipid nanoparticle (LNP)": 372,
-    "mRNA / nucleic acid carrier": 277,
-    "Liposome": 172,
+    "Nanoparticle (generic)": 822,
+    "Lipid nanoparticle (LNP)": 376,
+    "mRNA / nucleic acid carrier": 279,
+    "Liposome": 174,
     "Microsphere": 168,
-    "Hydrogel": 164,
+    "Hydrogel": 165,
     "Nanocrystal": 90,
     "Nanosuspension": 83,
     "PLGA nanoparticle": 82,
-    "Thermosensitive hydrogel": 60,
+    "Thermosensitive hydrogel": 61,
     "PLGA microsphere": 54,
     "In situ gel": 47,
     "Block copolymer": 32,
     "PLGA implant": 17
   },
   "input_features": {
-    "Concentration": 226,
+    "Concentration": 227,
     "Particle size": 177,
-    "Temperature": 152,
+    "Temperature": 154,
     "Process parameters": 145,
     "Drug loading": 142,
     "Zeta potential": 119,
-    "pH": 91,
+    "pH": 92,
     "Viscosity": 57,
     "Surfactant concentration": 56,
     "Polymer/lipid ratio": 36,
@@ -373,7 +373,7 @@
     "2023": 50,
     "2024": 55,
     "2025": 106,
-    "2026": 2039,
+    "2026": 2051,
     "2027": 1
   },
   "domain_model_matrix": {
@@ -396,7 +396,7 @@
     },
     "liposome": {
       "Deep Learning": 53,
-      "VAE / GAN": 39,
+      "VAE / GAN": 40,
       "Transformer / LLM": 24,
       "Molecular Dynamics": 23,
       "XGBoost": 19,
