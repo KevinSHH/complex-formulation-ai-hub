@@ -1,7 +1,7 @@
 {
   "meta": {
-    "total_papers": 2546,
-    "total_ml_papers": 765,
+    "total_papers": 2552,
+    "total_ml_papers": 767,
     "domains": {
       "in_situ_gel": {
         "label": "In Situ Gel",
@@ -14,14 +14,14 @@
         "label": "Liposome",
         "label_cn": "脂质体",
         "icon": "🧫",
-        "total": 962,
-        "ml": 311
+        "total": 965,
+        "ml": 312
       },
       "microsphere": {
         "label": "Microsphere",
         "label_cn": "微球",
         "icon": "⚪",
-        "total": 453,
+        "total": 454,
         "ml": 135
       },
       "nanocrystal": {
@@ -35,21 +35,21 @@
         "label": "PLGA Design",
         "label_cn": "PLGA 设计",
         "icon": "🧬",
-        "total": 388,
-        "ml": 96
+        "total": 390,
+        "ml": 97
       }
     }
   },
   "ai_models": {
-    "VAE / GAN": 84,
-    "Deep Learning": 81,
+    "VAE / GAN": 85,
+    "Deep Learning": 82,
     "Molecular Dynamics": 60,
     "Transformer / LLM": 56,
     "ANN / MLP": 46,
     "XGBoost": 41,
     "Ensemble": 41,
     "Random Forest": 30,
-    "Gaussian Process": 28,
+    "Gaussian Process": 29,
     "SVM": 21,
     "CNN": 20,
     "GNN": 17,
@@ -62,15 +62,15 @@
     "AutoML": 3
   },
   "formulation_types": {
-    "Nanoparticle (generic)": 822,
-    "Lipid nanoparticle (LNP)": 376,
-    "mRNA / nucleic acid carrier": 279,
+    "Nanoparticle (generic)": 826,
+    "Lipid nanoparticle (LNP)": 378,
+    "mRNA / nucleic acid carrier": 281,
     "Liposome": 174,
     "Microsphere": 168,
     "Hydrogel": 165,
     "Nanocrystal": 90,
     "Nanosuspension": 83,
-    "PLGA nanoparticle": 82,
+    "PLGA nanoparticle": 83,
     "Thermosensitive hydrogel": 61,
     "PLGA microsphere": 54,
     "In situ gel": 47,
@@ -80,7 +80,7 @@
   "input_features": {
     "Concentration": 227,
     "Particle size": 177,
-    "Temperature": 154,
+    "Temperature": 155,
     "Process parameters": 145,
     "Drug loading": 142,
     "Zeta potential": 119,
@@ -373,7 +373,7 @@
     "2023": 50,
     "2024": 55,
     "2025": 106,
-    "2026": 2051,
+    "2026": 2057,
     "2027": 1
   },
   "domain_model_matrix": {
@@ -401,9 +401,9 @@
       "Molecular Dynamics": 23,
       "XGBoost": 19,
       "Random Forest": 15,
+      "Gaussian Process": 13,
       "ANN / MLP": 12,
       "Ensemble": 12,
-      "Gaussian Process": 12,
       "GNN": 10,
       "SVM": 8,
       "Linear / PLS": 7,
@@ -452,7 +452,7 @@
       "Decision Tree": 1
     },
     "plga_design": {
-      "VAE / GAN": 21,
+      "VAE / GAN": 22,
       "Transformer / LLM": 11,
       "Molecular Dynamics": 10,
       "XGBoost": 8,
@@ -460,9 +460,9 @@
       "Ensemble": 4,
       "Linear / PLS": 4,
       "ANN / MLP": 4,
+      "Deep Learning": 4,
       "SVM": 3,
       "GNN": 3,
-      "Deep Learning": 3,
       "Random Forest": 2,
       "Genetic Algorithm": 2,
       "Reinforcement Learning": 1,
