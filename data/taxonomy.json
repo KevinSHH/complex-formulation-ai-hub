@@ -1,27 +1,27 @@
 {
   "meta": {
-    "total_papers": 2593,
-    "total_ml_papers": 778,
+    "total_papers": 2603,
+    "total_ml_papers": 781,
     "domains": {
       "in_situ_gel": {
         "label": "In Situ Gel",
         "label_cn": "原位凝胶",
         "icon": "💧",
-        "total": 181,
+        "total": 182,
         "ml": 38
       },
       "liposome": {
         "label": "Liposome",
         "label_cn": "脂质体",
         "icon": "🧫",
-        "total": 979,
-        "ml": 314
+        "total": 986,
+        "ml": 317
       },
       "microsphere": {
         "label": "Microsphere",
         "label_cn": "微球",
         "icon": "⚪",
-        "total": 462,
+        "total": 464,
         "ml": 138
       },
       "nanocrystal": {
@@ -42,12 +42,12 @@
   },
   "ai_models": {
     "VAE / GAN": 86,
-    "Deep Learning": 84,
+    "Deep Learning": 85,
     "Molecular Dynamics": 61,
     "Transformer / LLM": 58,
     "ANN / MLP": 46,
+    "Ensemble": 43,
     "XGBoost": 42,
-    "Ensemble": 42,
     "Random Forest": 32,
     "Gaussian Process": 29,
     "SVM": 21,
@@ -62,13 +62,13 @@
     "AutoML": 3
   },
   "formulation_types": {
-    "Nanoparticle (generic)": 840,
-    "Lipid nanoparticle (LNP)": 385,
-    "mRNA / nucleic acid carrier": 286,
-    "Liposome": 176,
+    "Nanoparticle (generic)": 846,
+    "Lipid nanoparticle (LNP)": 387,
+    "mRNA / nucleic acid carrier": 290,
+    "Liposome": 177,
     "Microsphere": 169,
-    "Hydrogel": 165,
-    "Nanocrystal": 92,
+    "Hydrogel": 166,
+    "Nanocrystal": 93,
     "Nanosuspension": 83,
     "PLGA nanoparticle": 83,
     "Thermosensitive hydrogel": 61,
@@ -79,11 +79,11 @@
   },
   "input_features": {
     "Concentration": 229,
-    "Particle size": 177,
+    "Particle size": 178,
     "Temperature": 157,
-    "Process parameters": 146,
+    "Process parameters": 149,
     "Drug loading": 142,
-    "Zeta potential": 119,
+    "Zeta potential": 120,
     "pH": 92,
     "Viscosity": 57,
     "Surfactant concentration": 56,
@@ -343,7 +343,16 @@
     "stirring speed": 1,
     "acoustic sensor signals": 1,
     "piezoelectric/triboelectric/MEMS readings": 1,
-    "multimodal data (e.g., physiological, environmental)": 1
+    "multimodal data (e.g., physiological, environmental)": 1,
+    "lipid composition (type and ratio of phospholipids)": 1,
+    "cholesterol content": 1,
+    "surfactant or stabilizer concentration": 1,
+    "drug-to-lipid ratio": 1,
+    "aqueous phase pH and ionic strength": 1,
+    "microfluidic flow rates (aqueous and organic phases)": 1,
+    "temperature and pressure during formulation": 1,
+    "mixing time and shear rate": 1,
+    "post‑processing steps (e.g., extrusion, sonication parameters)": 1
   },
   "year_trend": {
     "1995": 1,
@@ -376,8 +385,8 @@
     "2023": 50,
     "2024": 55,
     "2025": 106,
-    "2026": 2098,
-    "2027": 1
+    "2026": 2107,
+    "2027": 2
   },
   "domain_model_matrix": {
     "in_situ_gel": {
@@ -398,15 +407,15 @@
       "Gaussian Process": 1
     },
     "liposome": {
-      "Deep Learning": 53,
+      "Deep Learning": 54,
       "VAE / GAN": 41,
       "Transformer / LLM": 25,
       "Molecular Dynamics": 23,
       "XGBoost": 19,
       "Random Forest": 15,
+      "Ensemble": 13,
       "Gaussian Process": 13,
       "ANN / MLP": 12,
-      "Ensemble": 12,
       "GNN": 10,
       "SVM": 8,
       "Linear / PLS": 7,
