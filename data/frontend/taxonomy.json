@@ -1,55 +1,55 @@
 {
   "meta": {
-    "total_papers": 2957,
-    "total_ml_papers": 863,
+    "total_papers": 2983,
+    "total_ml_papers": 869,
     "domains": {
       "in_situ_gel": {
         "label": "In Situ Gel",
         "label_cn": "原位凝胶",
         "icon": "💧",
-        "total": 198,
+        "total": 200,
         "ml": 39
       },
       "liposome": {
         "label": "Liposome",
         "label_cn": "脂质体",
         "icon": "🧫",
-        "total": 1136,
-        "ml": 353
+        "total": 1148,
+        "ml": 356
       },
       "microsphere": {
         "label": "Microsphere",
         "label_cn": "微球",
         "icon": "⚪",
-        "total": 528,
-        "ml": 153
+        "total": 534,
+        "ml": 155
       },
       "nanocrystal": {
         "label": "Nanocrystal",
         "label_cn": "纳米晶",
         "icon": "💎",
-        "total": 660,
+        "total": 664,
         "ml": 217
       },
       "plga_design": {
         "label": "PLGA Design",
         "label_cn": "PLGA 设计",
         "icon": "🧬",
-        "total": 435,
-        "ml": 101
+        "total": 437,
+        "ml": 102
       }
     }
   },
   "ai_models": {
+    "Deep Learning": 92,
     "VAE / GAN": 91,
-    "Deep Learning": 91,
     "Molecular Dynamics": 66,
     "Transformer / LLM": 66,
     "Ensemble": 49,
     "ANN / MLP": 49,
-    "XGBoost": 44,
-    "Random Forest": 36,
-    "Gaussian Process": 32,
+    "XGBoost": 45,
+    "Random Forest": 37,
+    "Gaussian Process": 33,
     "CNN": 22,
     "SVM": 21,
     "GNN": 19,
@@ -62,37 +62,37 @@
     "AutoML": 3
   },
   "formulation_types": {
-    "Nanoparticle (generic)": 967,
-    "Lipid nanoparticle (LNP)": 451,
-    "mRNA / nucleic acid carrier": 337,
-    "Liposome": 200,
-    "Hydrogel": 187,
+    "Nanoparticle (generic)": 976,
+    "Lipid nanoparticle (LNP)": 456,
+    "mRNA / nucleic acid carrier": 339,
+    "Liposome": 204,
+    "Hydrogel": 191,
     "Microsphere": 183,
     "Nanocrystal": 104,
-    "PLGA nanoparticle": 91,
-    "Nanosuspension": 88,
+    "PLGA nanoparticle": 92,
+    "Nanosuspension": 89,
     "Thermosensitive hydrogel": 63,
     "PLGA microsphere": 55,
     "In situ gel": 50,
-    "Block copolymer": 34,
-    "PLGA implant": 18
+    "Block copolymer": 35,
+    "PLGA implant": 19
   },
   "input_features": {
-    "Concentration": 255,
-    "Particle size": 191,
+    "Concentration": 256,
+    "Particle size": 192,
     "Temperature": 188,
-    "Process parameters": 164,
+    "Process parameters": 166,
     "Drug loading": 152,
-    "Zeta potential": 136,
+    "Zeta potential": 137,
     "pH": 107,
-    "Viscosity": 65,
+    "Viscosity": 67,
     "Surfactant concentration": 57,
     "Polymer/lipid ratio": 38,
     "Polymer molecular weight": 30,
-    "Molecular descriptors": 27,
+    "Molecular descriptors": 28,
     "temperature": 13,
+    "particle size": 5,
     "zeta potential": 4,
-    "particle size": 4,
     "polymer concentration": 3,
     "polydispersity index": 3,
     "flow rate": 2,
@@ -375,7 +375,8 @@
     "grinding condition": 1,
     "atomic coordinates (x, y, z)": 1,
     "core diameter": 1,
-    "polymer grafting density/polymer chain length": 1
+    "polymer grafting density/polymer chain length": 1,
+    "physicochemical properties": 1
   },
   "year_trend": {
     "1995": 1,
@@ -408,7 +409,7 @@
     "2023": 50,
     "2024": 55,
     "2025": 106,
-    "2026": 2461,
+    "2026": 2487,
     "2027": 2
   },
   "domain_model_matrix": {
@@ -434,7 +435,7 @@
       "VAE / GAN": 42,
       "Transformer / LLM": 29,
       "Molecular Dynamics": 24,
-      "XGBoost": 19,
+      "XGBoost": 20,
       "Random Forest": 16,
       "Ensemble": 15,
       "Gaussian Process": 15,
@@ -451,10 +452,10 @@
       "AutoML": 1
     },
     "microsphere": {
-      "Deep Learning": 16,
+      "Deep Learning": 17,
       "VAE / GAN": 11,
       "ANN / MLP": 10,
-      "Random Forest": 8,
+      "Random Forest": 9,
       "Ensemble": 7,
       "CNN": 7,
       "XGBoost": 6,
@@ -492,7 +493,7 @@
       "Molecular Dynamics": 11,
       "Transformer / LLM": 11,
       "XGBoost": 8,
-      "Gaussian Process": 6,
+      "Gaussian Process": 7,
       "ANN / MLP": 5,
       "Ensemble": 4,
       "Linear / PLS": 4,
