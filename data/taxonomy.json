@@ -1,41 +1,41 @@
 {
   "meta": {
-    "total_papers": 3375,
-    "total_ml_papers": 977,
+    "total_papers": 3397,
+    "total_ml_papers": 980,
     "domains": {
       "in_situ_gel": {
         "label": "In Situ Gel",
         "label_cn": "原位凝胶",
         "icon": "💧",
-        "total": 233,
+        "total": 236,
         "ml": 41
       },
       "liposome": {
         "label": "Liposome",
         "label_cn": "脂质体",
         "icon": "🧫",
-        "total": 1292,
-        "ml": 403
+        "total": 1300,
+        "ml": 404
       },
       "microsphere": {
         "label": "Microsphere",
         "label_cn": "微球",
         "icon": "⚪",
-        "total": 596,
-        "ml": 173
+        "total": 601,
+        "ml": 174
       },
       "nanocrystal": {
         "label": "Nanocrystal",
         "label_cn": "纳米晶",
         "icon": "💎",
-        "total": 755,
-        "ml": 248
+        "total": 760,
+        "ml": 249
       },
       "plga_design": {
         "label": "PLGA Design",
         "label_cn": "PLGA 设计",
         "icon": "🧬",
-        "total": 499,
+        "total": 500,
         "ml": 112
       }
     }
@@ -43,16 +43,16 @@
   "ai_models": {
     "VAE / GAN": 105,
     "Deep Learning": 101,
-    "Molecular Dynamics": 75,
+    "Molecular Dynamics": 76,
     "Transformer / LLM": 72,
     "ANN / MLP": 58,
+    "Ensemble": 53,
     "XGBoost": 52,
-    "Ensemble": 52,
-    "Random Forest": 43,
+    "Random Forest": 44,
     "Gaussian Process": 37,
     "CNN": 27,
-    "Linear / PLS": 24,
-    "SVM": 22,
+    "Linear / PLS": 25,
+    "SVM": 23,
     "GNN": 21,
     "Genetic Algorithm": 16,
     "RNN / LSTM": 11,
@@ -62,15 +62,15 @@
     "AutoML": 3
   },
   "formulation_types": {
-    "Nanoparticle (generic)": 1077,
-    "Lipid nanoparticle (LNP)": 502,
-    "mRNA / nucleic acid carrier": 376,
-    "Hydrogel": 219,
-    "Liposome": 219,
-    "Microsphere": 195,
-    "Nanocrystal": 121,
+    "Nanoparticle (generic)": 1084,
+    "Lipid nanoparticle (LNP)": 505,
+    "mRNA / nucleic acid carrier": 377,
+    "Hydrogel": 222,
+    "Liposome": 221,
+    "Microsphere": 198,
+    "Nanocrystal": 122,
     "PLGA nanoparticle": 98,
-    "Nanosuspension": 94,
+    "Nanosuspension": 95,
     "Thermosensitive hydrogel": 68,
     "PLGA microsphere": 57,
     "In situ gel": 56,
@@ -78,15 +78,15 @@
     "PLGA implant": 20
   },
   "input_features": {
-    "Concentration": 308,
-    "Particle size": 228,
-    "Temperature": 212,
-    "Process parameters": 198,
-    "Zeta potential": 169,
-    "Drug loading": 165,
-    "pH": 122,
-    "Viscosity": 82,
-    "Surfactant concentration": 66,
+    "Concentration": 311,
+    "Particle size": 234,
+    "Temperature": 215,
+    "Process parameters": 199,
+    "Zeta potential": 170,
+    "Drug loading": 169,
+    "pH": 124,
+    "Viscosity": 83,
+    "Surfactant concentration": 67,
     "Polymer molecular weight": 41,
     "Polymer/lipid ratio": 41,
     "Molecular descriptors": 30,
@@ -409,7 +409,7 @@
     "2023": 50,
     "2024": 55,
     "2025": 106,
-    "2026": 2879,
+    "2026": 2901,
     "2027": 2
   },
   "domain_model_matrix": {
@@ -436,13 +436,13 @@
       "Transformer / LLM": 32,
       "Molecular Dynamics": 29,
       "XGBoost": 23,
-      "Random Forest": 17,
+      "Random Forest": 18,
       "Ensemble": 16,
       "Gaussian Process": 16,
       "ANN / MLP": 15,
       "GNN": 12,
+      "Linear / PLS": 10,
       "CNN": 9,
-      "Linear / PLS": 9,
       "SVM": 8,
       "k-NN": 7,
       "RNN / LSTM": 5,
@@ -456,13 +456,13 @@
       "VAE / GAN": 12,
       "Random Forest": 12,
       "ANN / MLP": 11,
-      "Ensemble": 7,
+      "Ensemble": 8,
       "CNN": 7,
       "XGBoost": 7,
       "Transformer / LLM": 5,
+      "SVM": 5,
       "Linear / PLS": 4,
       "Molecular Dynamics": 4,
-      "SVM": 4,
       "Gaussian Process": 3,
       "RNN / LSTM": 3,
       "Reinforcement Learning": 3,
@@ -470,7 +470,7 @@
       "Genetic Algorithm": 2
     },
     "nanocrystal": {
-      "Molecular Dynamics": 29,
+      "Molecular Dynamics": 30,
       "Ensemble": 23,
       "Transformer / LLM": 21,
       "ANN / MLP": 21,
