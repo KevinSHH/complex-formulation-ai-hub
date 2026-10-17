@@ -1,41 +1,41 @@
 {
   "meta": {
-    "total_papers": 3551,
-    "total_ml_papers": 1028,
+    "total_papers": 3602,
+    "total_ml_papers": 1035,
     "domains": {
       "in_situ_gel": {
         "label": "In Situ Gel",
         "label_cn": "原位凝胶",
         "icon": "💧",
-        "total": 246,
+        "total": 253,
         "ml": 41
       },
       "liposome": {
         "label": "Liposome",
         "label_cn": "脂质体",
         "icon": "🧫",
-        "total": 1358,
-        "ml": 422
+        "total": 1375,
+        "ml": 427
       },
       "microsphere": {
         "label": "Microsphere",
         "label_cn": "微球",
         "icon": "⚪",
-        "total": 623,
-        "ml": 184
+        "total": 632,
+        "ml": 185
       },
       "nanocrystal": {
         "label": "Nanocrystal",
         "label_cn": "纳米晶",
         "icon": "💎",
-        "total": 799,
-        "ml": 267
+        "total": 811,
+        "ml": 268
       },
       "plga_design": {
         "label": "PLGA Design",
         "label_cn": "PLGA 设计",
         "icon": "🧬",
-        "total": 525,
+        "total": 531,
         "ml": 114
       }
     }
@@ -62,33 +62,33 @@
     "AutoML": 3
   },
   "formulation_types": {
-    "Nanoparticle (generic)": 1138,
-    "Lipid nanoparticle (LNP)": 527,
-    "mRNA / nucleic acid carrier": 397,
-    "Hydrogel": 232,
-    "Liposome": 227,
-    "Microsphere": 213,
-    "Nanocrystal": 128,
-    "Nanosuspension": 101,
-    "PLGA nanoparticle": 101,
-    "Thermosensitive hydrogel": 73,
+    "Nanoparticle (generic)": 1158,
+    "Lipid nanoparticle (LNP)": 534,
+    "mRNA / nucleic acid carrier": 399,
+    "Hydrogel": 235,
+    "Liposome": 230,
+    "Microsphere": 217,
+    "Nanocrystal": 129,
+    "Nanosuspension": 103,
+    "PLGA nanoparticle": 103,
+    "Thermosensitive hydrogel": 75,
+    "In situ gel": 58,
     "PLGA microsphere": 58,
-    "In situ gel": 57,
     "Block copolymer": 40,
-    "PLGA implant": 20
+    "PLGA implant": 21
   },
   "input_features": {
-    "Concentration": 328,
-    "Particle size": 249,
-    "Temperature": 227,
-    "Process parameters": 208,
-    "Zeta potential": 182,
-    "Drug loading": 180,
-    "pH": 131,
-    "Viscosity": 91,
-    "Surfactant concentration": 71,
+    "Concentration": 338,
+    "Particle size": 257,
+    "Temperature": 232,
+    "Process parameters": 211,
+    "Zeta potential": 189,
+    "Drug loading": 185,
+    "pH": 133,
+    "Viscosity": 94,
+    "Surfactant concentration": 73,
+    "Polymer/lipid ratio": 43,
     "Polymer molecular weight": 42,
-    "Polymer/lipid ratio": 42,
     "Molecular descriptors": 33,
     "temperature": 13,
     "particle size": 5,
@@ -409,7 +409,7 @@
     "2023": 50,
     "2024": 55,
     "2025": 106,
-    "2026": 3055,
+    "2026": 3106,
     "2027": 2
   },
   "domain_model_matrix": {
