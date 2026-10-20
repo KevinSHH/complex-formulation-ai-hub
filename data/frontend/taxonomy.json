@@ -1,7 +1,7 @@
 {
   "meta": {
-    "total_papers": 3665,
-    "total_ml_papers": 1049,
+    "total_papers": 3667,
+    "total_ml_papers": 1050,
     "domains": {
       "in_situ_gel": {
         "label": "In Situ Gel",
@@ -14,8 +14,8 @@
         "label": "Liposome",
         "label_cn": "脂质体",
         "icon": "🧫",
-        "total": 1405,
-        "ml": 438
+        "total": 1407,
+        "ml": 439
       },
       "microsphere": {
         "label": "Microsphere",
@@ -62,9 +62,9 @@
     "AutoML": 3
   },
   "formulation_types": {
-    "Nanoparticle (generic)": 1189,
-    "Lipid nanoparticle (LNP)": 548,
-    "mRNA / nucleic acid carrier": 402,
+    "Nanoparticle (generic)": 1191,
+    "Lipid nanoparticle (LNP)": 550,
+    "mRNA / nucleic acid carrier": 403,
     "Hydrogel": 241,
     "Liposome": 241,
     "Microsphere": 220,
@@ -409,7 +409,7 @@
     "2023": 50,
     "2024": 55,
     "2025": 106,
-    "2026": 3169,
+    "2026": 3171,
     "2027": 2
   },
   "domain_model_matrix": {
