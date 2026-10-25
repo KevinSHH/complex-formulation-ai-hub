@@ -1,55 +1,55 @@
 {
   "meta": {
-    "total_papers": 3806,
-    "total_ml_papers": 1081,
+    "total_papers": 3836,
+    "total_ml_papers": 1090,
     "domains": {
       "in_situ_gel": {
         "label": "In Situ Gel",
         "label_cn": "原位凝胶",
         "icon": "💧",
-        "total": 267,
-        "ml": 42
+        "total": 269,
+        "ml": 43
       },
       "liposome": {
         "label": "Liposome",
         "label_cn": "脂质体",
         "icon": "🧫",
-        "total": 1459,
-        "ml": 454
+        "total": 1465,
+        "ml": 455
       },
       "microsphere": {
         "label": "Microsphere",
         "label_cn": "微球",
         "icon": "⚪",
-        "total": 665,
-        "ml": 191
+        "total": 671,
+        "ml": 193
       },
       "nanocrystal": {
         "label": "Nanocrystal",
         "label_cn": "纳米晶",
         "icon": "💎",
-        "total": 855,
-        "ml": 276
+        "total": 865,
+        "ml": 280
       },
       "plga_design": {
         "label": "PLGA Design",
         "label_cn": "PLGA 设计",
         "icon": "🧬",
-        "total": 560,
-        "ml": 118
+        "total": 566,
+        "ml": 119
       }
     }
   },
   "ai_models": {
-    "VAE / GAN": 111,
-    "Deep Learning": 106,
+    "VAE / GAN": 113,
+    "Deep Learning": 107,
     "Transformer / LLM": 81,
-    "Molecular Dynamics": 77,
+    "Molecular Dynamics": 78,
     "ANN / MLP": 67,
-    "XGBoost": 61,
+    "XGBoost": 62,
     "Ensemble": 57,
     "Random Forest": 50,
-    "Gaussian Process": 41,
+    "Gaussian Process": 42,
     "CNN": 31,
     "Linear / PLS": 29,
     "SVM": 28,
@@ -62,14 +62,14 @@
     "AutoML": 3
   },
   "formulation_types": {
-    "Nanoparticle (generic)": 1238,
-    "Lipid nanoparticle (LNP)": 568,
-    "mRNA / nucleic acid carrier": 419,
-    "Hydrogel": 254,
-    "Liposome": 249,
-    "Microsphere": 227,
-    "Nanocrystal": 137,
-    "PLGA nanoparticle": 106,
+    "Nanoparticle (generic)": 1244,
+    "Lipid nanoparticle (LNP)": 570,
+    "mRNA / nucleic acid carrier": 421,
+    "Hydrogel": 259,
+    "Liposome": 250,
+    "Microsphere": 229,
+    "Nanocrystal": 140,
+    "PLGA nanoparticle": 107,
     "Nanosuspension": 105,
     "Thermosensitive hydrogel": 82,
     "In situ gel": 62,
@@ -78,15 +78,15 @@
     "PLGA implant": 23
   },
   "input_features": {
-    "Concentration": 355,
-    "Particle size": 282,
-    "Temperature": 243,
-    "Process parameters": 226,
-    "Zeta potential": 214,
-    "Drug loading": 198,
-    "pH": 144,
-    "Viscosity": 100,
-    "Surfactant concentration": 77,
+    "Concentration": 358,
+    "Particle size": 283,
+    "Temperature": 244,
+    "Process parameters": 227,
+    "Zeta potential": 217,
+    "Drug loading": 200,
+    "pH": 147,
+    "Viscosity": 101,
+    "Surfactant concentration": 78,
     "Polymer/lipid ratio": 45,
     "Polymer molecular weight": 43,
     "Molecular descriptors": 37,
@@ -409,13 +409,13 @@
     "2023": 50,
     "2024": 55,
     "2025": 106,
-    "2026": 3310,
+    "2026": 3340,
     "2027": 2
   },
   "domain_model_matrix": {
     "in_situ_gel": {
+      "VAE / GAN": 7,
       "ANN / MLP": 6,
-      "VAE / GAN": 6,
       "Deep Learning": 3,
       "Ensemble": 2,
       "Molecular Dynamics": 2,
@@ -432,7 +432,7 @@
     },
     "liposome": {
       "Deep Learning": 63,
-      "VAE / GAN": 55,
+      "VAE / GAN": 56,
       "Transformer / LLM": 37,
       "Molecular Dynamics": 29,
       "XGBoost": 27,
@@ -452,11 +452,11 @@
       "AutoML": 1
     },
     "microsphere": {
-      "Deep Learning": 22,
+      "Deep Learning": 23,
       "Random Forest": 15,
       "VAE / GAN": 12,
       "ANN / MLP": 11,
-      "XGBoost": 10,
+      "XGBoost": 11,
       "Ensemble": 8,
       "CNN": 8,
       "SVM": 6,
@@ -471,13 +471,13 @@
       "Decision Tree": 1
     },
     "nanocrystal": {
-      "Molecular Dynamics": 31,
+      "Molecular Dynamics": 32,
       "ANN / MLP": 26,
       "Ensemble": 25,
       "Transformer / LLM": 24,
       "XGBoost": 14,
+      "Gaussian Process": 12,
       "Deep Learning": 12,
-      "Gaussian Process": 11,
       "VAE / GAN": 11,
       "CNN": 11,
       "Random Forest": 10,
