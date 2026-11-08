@@ -1,57 +1,57 @@
 {
   "meta": {
-    "total_papers": 4364,
-    "total_ml_papers": 1270,
+    "total_papers": 4403,
+    "total_ml_papers": 1284,
     "domains": {
       "in_situ_gel": {
         "label": "In Situ Gel",
         "label_cn": "原位凝胶",
         "icon": "💧",
-        "total": 316,
-        "ml": 51
+        "total": 323,
+        "ml": 52
       },
       "liposome": {
         "label": "Liposome",
         "label_cn": "脂质体",
         "icon": "🧫",
-        "total": 1686,
-        "ml": 533
+        "total": 1699,
+        "ml": 539
       },
       "microsphere": {
         "label": "Microsphere",
         "label_cn": "微球",
         "icon": "⚪",
-        "total": 752,
-        "ml": 228
+        "total": 757,
+        "ml": 230
       },
       "nanocrystal": {
         "label": "Nanocrystal",
         "label_cn": "纳米晶",
         "icon": "💎",
-        "total": 970,
-        "ml": 325
+        "total": 976,
+        "ml": 327
       },
       "plga_design": {
         "label": "PLGA Design",
         "label_cn": "PLGA 设计",
         "icon": "🧬",
-        "total": 640,
-        "ml": 133
+        "total": 648,
+        "ml": 136
       }
     }
   },
   "ai_models": {
-    "VAE / GAN": 127,
-    "Deep Learning": 118,
+    "VAE / GAN": 130,
+    "Deep Learning": 119,
     "Molecular Dynamics": 92,
     "Transformer / LLM": 92,
     "XGBoost": 72,
-    "ANN / MLP": 71,
-    "Ensemble": 65,
+    "ANN / MLP": 72,
+    "Ensemble": 66,
     "Random Forest": 57,
     "Gaussian Process": 47,
     "CNN": 34,
-    "SVM": 32,
+    "SVM": 33,
     "Linear / PLS": 32,
     "GNN": 27,
     "Genetic Algorithm": 18,
@@ -62,33 +62,33 @@
     "AutoML": 3
   },
   "formulation_types": {
-    "Nanoparticle (generic)": 1424,
-    "Lipid nanoparticle (LNP)": 671,
-    "mRNA / nucleic acid carrier": 489,
-    "Hydrogel": 305,
-    "Liposome": 296,
-    "Microsphere": 254,
+    "Nanoparticle (generic)": 1437,
+    "Lipid nanoparticle (LNP)": 679,
+    "mRNA / nucleic acid carrier": 494,
+    "Hydrogel": 310,
+    "Liposome": 299,
+    "Microsphere": 257,
     "Nanocrystal": 157,
-    "PLGA nanoparticle": 116,
-    "Nanosuspension": 109,
-    "Thermosensitive hydrogel": 94,
-    "In situ gel": 71,
-    "PLGA microsphere": 60,
+    "PLGA nanoparticle": 117,
+    "Nanosuspension": 111,
+    "Thermosensitive hydrogel": 96,
+    "In situ gel": 72,
+    "PLGA microsphere": 61,
     "Block copolymer": 46,
     "PLGA implant": 27
   },
   "input_features": {
-    "Concentration": 416,
-    "Particle size": 329,
-    "Temperature": 290,
-    "Zeta potential": 257,
-    "Process parameters": 256,
-    "Drug loading": 234,
-    "pH": 167,
+    "Concentration": 420,
+    "Particle size": 332,
+    "Temperature": 295,
+    "Zeta potential": 260,
+    "Process parameters": 258,
+    "Drug loading": 237,
+    "pH": 170,
     "Viscosity": 120,
     "Surfactant concentration": 90,
     "Polymer/lipid ratio": 51,
-    "Polymer molecular weight": 47,
+    "Polymer molecular weight": 48,
     "Molecular descriptors": 46,
     "temperature": 13,
     "particle size": 5,
@@ -414,7 +414,7 @@
     "2023": 50,
     "2024": 55,
     "2025": 106,
-    "2026": 3868,
+    "2026": 3907,
     "2027": 2
   },
   "domain_model_matrix": {
@@ -437,7 +437,7 @@
     },
     "liposome": {
       "Deep Learning": 69,
-      "VAE / GAN": 64,
+      "VAE / GAN": 66,
       "Transformer / LLM": 41,
       "Molecular Dynamics": 38,
       "XGBoost": 35,
@@ -459,13 +459,13 @@
     "microsphere": {
       "Deep Learning": 24,
       "Random Forest": 19,
-      "ANN / MLP": 13,
-      "VAE / GAN": 13,
+      "ANN / MLP": 14,
+      "VAE / GAN": 14,
       "XGBoost": 13,
       "CNN": 10,
       "Ensemble": 8,
+      "SVM": 8,
       "Transformer / LLM": 7,
-      "SVM": 7,
       "Gaussian Process": 6,
       "Linear / PLS": 5,
       "Molecular Dynamics": 5,
@@ -501,10 +501,10 @@
       "Molecular Dynamics": 12,
       "XGBoost": 9,
       "Gaussian Process": 8,
+      "Deep Learning": 7,
       "Linear / PLS": 6,
       "ANN / MLP": 6,
-      "Deep Learning": 6,
-      "Ensemble": 4,
+      "Ensemble": 5,
       "Genetic Algorithm": 4,
       "SVM": 3,
       "GNN": 3,
