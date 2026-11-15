@@ -1,6 +1,6 @@
 {
   "meta": {
-    "total_papers": 4646,
+    "total_papers": 4647,
     "total_ml_papers": 1335,
     "domains": {
       "in_situ_gel": {
@@ -14,7 +14,7 @@
         "label": "Liposome",
         "label_cn": "脂质体",
         "icon": "🧫",
-        "total": 1786,
+        "total": 1787,
         "ml": 558
       },
       "microsphere": {
@@ -66,7 +66,7 @@
     "Lipid nanoparticle (LNP)": 706,
     "mRNA / nucleic acid carrier": 513,
     "Hydrogel": 330,
-    "Liposome": 321,
+    "Liposome": 322,
     "Microsphere": 262,
     "Nanocrystal": 165,
     "PLGA nanoparticle": 118,
@@ -414,7 +414,7 @@
     "2023": 50,
     "2024": 55,
     "2025": 106,
-    "2026": 4150,
+    "2026": 4151,
     "2027": 2
   },
   "domain_model_matrix": {
