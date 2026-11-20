@@ -1,49 +1,49 @@
 {
   "meta": {
-    "total_papers": 4825,
-    "total_ml_papers": 1381,
+    "total_papers": 4862,
+    "total_ml_papers": 1389,
     "domains": {
       "in_situ_gel": {
         "label": "In Situ Gel",
         "label_cn": "原位凝胶",
         "icon": "💧",
-        "total": 357,
+        "total": 359,
         "ml": 54
       },
       "liposome": {
         "label": "Liposome",
         "label_cn": "脂质体",
         "icon": "🧫",
-        "total": 1852,
-        "ml": 577
+        "total": 1867,
+        "ml": 582
       },
       "microsphere": {
         "label": "Microsphere",
         "label_cn": "微球",
         "icon": "⚪",
-        "total": 839,
+        "total": 843,
         "ml": 251
       },
       "nanocrystal": {
         "label": "Nanocrystal",
         "label_cn": "纳米晶",
         "icon": "💎",
-        "total": 1060,
-        "ml": 353
+        "total": 1067,
+        "ml": 354
       },
       "plga_design": {
         "label": "PLGA Design",
         "label_cn": "PLGA 设计",
         "icon": "🧬",
-        "total": 717,
-        "ml": 146
+        "total": 726,
+        "ml": 148
       }
     }
   },
   "ai_models": {
-    "VAE / GAN": 137,
+    "VAE / GAN": 140,
     "Deep Learning": 124,
-    "Molecular Dynamics": 103,
+    "Molecular Dynamics": 104,
     "Transformer / LLM": 102,
     "XGBoost": 78,
     "ANN / MLP": 77,
@@ -62,34 +62,34 @@
     "AutoML": 4
   },
   "formulation_types": {
-    "Nanoparticle (generic)": 1571,
-    "Lipid nanoparticle (LNP)": 737,
-    "mRNA / nucleic acid carrier": 534,
-    "Hydrogel": 345,
-    "Liposome": 333,
-    "Microsphere": 271,
+    "Nanoparticle (generic)": 1590,
+    "Lipid nanoparticle (LNP)": 748,
+    "mRNA / nucleic acid carrier": 541,
+    "Hydrogel": 348,
+    "Liposome": 335,
+    "Microsphere": 273,
     "Nanocrystal": 176,
-    "PLGA nanoparticle": 121,
+    "PLGA nanoparticle": 122,
     "Nanosuspension": 116,
-    "Thermosensitive hydrogel": 105,
+    "Thermosensitive hydrogel": 106,
     "In situ gel": 79,
     "PLGA microsphere": 62,
     "Block copolymer": 50,
     "PLGA implant": 28
   },
   "input_features": {
-    "Concentration": 462,
-    "Particle size": 366,
-    "Temperature": 322,
-    "Zeta potential": 287,
-    "Process parameters": 278,
-    "Drug loading": 258,
-    "pH": 183,
-    "Viscosity": 133,
+    "Concentration": 464,
+    "Particle size": 368,
+    "Temperature": 323,
+    "Zeta potential": 290,
+    "Process parameters": 279,
+    "Drug loading": 261,
+    "pH": 184,
+    "Viscosity": 134,
     "Surfactant concentration": 100,
-    "Polymer molecular weight": 53,
+    "Polymer molecular weight": 54,
     "Polymer/lipid ratio": 53,
-    "Molecular descriptors": 49,
+    "Molecular descriptors": 50,
     "temperature": 13,
     "particle size": 5,
     "zeta potential": 4,
@@ -414,8 +414,8 @@
     "2023": 50,
     "2024": 55,
     "2025": 106,
-    "2026": 4329,
-    "2027": 2
+    "2026": 4364,
+    "2027": 4
   },
   "domain_model_matrix": {
     "in_situ_gel": {
@@ -437,7 +437,7 @@
     },
     "liposome": {
       "Deep Learning": 72,
-      "VAE / GAN": 71,
+      "VAE / GAN": 72,
       "Transformer / LLM": 46,
       "Molecular Dynamics": 41,
       "XGBoost": 37,
@@ -484,7 +484,7 @@
       "Gaussian Process": 15,
       "XGBoost": 15,
       "Random Forest": 15,
-      "VAE / GAN": 12,
+      "VAE / GAN": 13,
       "CNN": 11,
       "SVM": 10,
       "Linear / PLS": 7,
@@ -496,8 +496,8 @@
       "k-NN": 1
     },
     "plga_design": {
-      "VAE / GAN": 32,
-      "Molecular Dynamics": 15,
+      "VAE / GAN": 33,
+      "Molecular Dynamics": 16,
       "Transformer / LLM": 13,
       "XGBoost": 10,
       "Gaussian Process": 9,
